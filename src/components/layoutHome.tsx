@@ -1,3 +1,5 @@
+import { BannerForBlockchains } from "./bannerForBlockchains";
+
 export const LayoutHome = () => {
     return (
         <div className="flex flex-col">
@@ -17,25 +19,33 @@ export const LayoutHome = () => {
             </h1>
 
             <div className="pt-10">
-                <p className="
-                    text-left
-                    text-4xl
-                    text-stone-200
-                    font-poppins
-                    "
-                >
-                    The decentralized map that brings crypto natives and communities together.
-                </p>
+                
+                <div>
+                    <p className="
+                        text-left
+                        text-4xl
+                        text-stone-200
+                        font-poppins
+                        "
+                    >
+                        The decentralized map that brings crypto natives and communities together.
+                    </p>
+                </div>
 
-                <p className="text-left text-lg text-stone-200 font-poppins pt-10">
-                    Built by the community for community.
-                </p>
+                <div>
+                    <p className="text-left text-2xl text-stone-200 font-poppins italic pt-16">
+                        W're All Gonna Meet!
+                    </p>
+                    <p className="text-left text-sm text-stone-200 font-poppins">
+                        Built by the community for community.
+                    </p>
+                </div>
 
-                <p className="text-left text-2xl text-stone-200 font-poppins italic pt-16">
-                    W're All Gonne Meet!
-                </p>
             </div>
 
+            <div>
+                <BannerForBlockchains/>
+            </div>
 
         </div>
     );

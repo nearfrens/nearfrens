@@ -14,8 +14,8 @@ export const Page = (props: { main: ReactElement }) =>  {
             </header>
 
             <main className="min-w-full flex-grow px-8 bg-black text-white">
-                <div className="mx-auto max-w-screen-sm md:max-w-screen-md">
-                    { props.main }
+                <div className="mx-auto max-w-screen-sm md:max-w-screen-md">                    
+                    { props.main }                    
                 </div>
             </main>
 
