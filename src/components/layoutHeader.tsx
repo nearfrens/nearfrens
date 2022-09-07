@@ -1,3 +1,6 @@
+import { ReactComponent as Logo } from "../icons/wagmeet.svg";
+
+
 const CustomButtom = (props: { text: string }) => {
     return (
         <button className="
@@ -21,8 +24,19 @@ export const LayoutHeader = () =>  {
     return (
         <div className="flex flex-row items-center justify-between"> 
             
-            <div>
-                WM WagMeet
+            <div className="flex flex-row items-center justify-start gap-4 group">
+                <div className="
+                    text-stone-200 group-hover:text-white
+                ">
+                    <Logo className="h-5 w-5"/>
+                </div>
+                <div className="
+                    text-xl 
+                    text-stone-200 group-hover:text-white
+                    font-poppins
+                ">
+                    WagMeet
+                </div>
             </div>
             
             <div className="flex flex-row items-center justify-between gap-10">
