@@ -1,3 +1,30 @@
+.map-container {
+    width: 100vw;
+    height: 100vh;
+}
+
+.mapboxgl-ctrl-attrib-inner {
+    display: none !important;
+}
+
+.mapboxgl-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: red;
+}
+
+/* .leaflet-bottom, .leaflet-top {
+    z-index: -10 !important;
+    position: absolute;
+    pointer-events: none;
+} */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1, h2, h3, h4, h5, h6, p {
+    @apply font-poppins
+}
+

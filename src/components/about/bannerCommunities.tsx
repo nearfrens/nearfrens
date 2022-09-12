@@ -1,9 +1,10 @@
 import { BannerIcon } from "./bannerIcon";
-import { ReactComponent as EnsIcon } from "../icons/ens.svg";
-import { ReactComponent as LensIcon } from "../icons/lens.svg";
+import { ReactComponent as EnsIcon } from "../icons/svg/ens.svg";
+import { ReactComponent as LensIcon } from "../icons/svg/lens.svg";
+import { ReactComponent as PoapIcon } from "../icons/svg/poap.svg";
 
 
-export const BannerForCommunities = () => {
+export const BannerCommunities = () => {
     return (
         <div className="my-24 flex flex-col items-center justify-center align-middle">
 
@@ -29,7 +30,14 @@ export const BannerForCommunities = () => {
                         href="https://lens.xyz/"
                         name="Lens Protocol"
                         legend="Coming soon"
-                    />             
+                    />
+
+                    <BannerIcon 
+                        logo={ <PoapIcon className="w-24 h-24 text-green-600"/> }
+                        href="https://poap.xyz/"
+                        name="Poap"
+                        legend="Coming soon"
+                    />
 
                 </div>
 

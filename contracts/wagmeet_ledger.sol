@@ -3,7 +3,7 @@ pragma solidity ^0.8.4;
 
 contract WagMeetCoordinateLedger {
 
-    // Example : [["40", "42", "51"],["74", "0", "21"]]
+    // Example : [ ["40", "42", "51"] , ["74", "0", "21"] ]
 
     struct Latitude {
         int8 _degrees;

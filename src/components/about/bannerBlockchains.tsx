@@ -1,11 +1,11 @@
-import { ReactComponent as ArbitrumLogo } from "../icons/arbitrum.svg";
-import { ReactComponent as EthereumIcon } from "../icons/ethereum.svg";
-import { ReactComponent as OptimismIcon } from "../icons/optimism.svg";
-import { ReactComponent as PolygonIcon } from "../icons/polygon.svg";
+import { ReactComponent as ArbitrumLogo } from "../icons/svg/arbitrum.svg";
+import { ReactComponent as EthereumIcon } from "../icons/svg/ethereum.svg";
+import { ReactComponent as OptimismIcon } from "../icons/svg/optimism.svg";
+import { ReactComponent as PolygonIcon } from "../icons/svg/polygon.svg";
 import { BannerIcon } from "./bannerIcon";
 
 
-export const BannerForBlockchains = () => {
+export const BannerBlockchains = () => {
     return (
         <div className="my-24 flex flex-col items-center justify-center align-middle">
 

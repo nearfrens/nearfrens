@@ -9,10 +9,10 @@ export const BannerWelcome = () => {
                 font-bold
                 font-poppins
                 bg-clip-text
-                bg-gradient-to-r from-sky-500 via-teal-500 to-purple-500
+                bg-gradient-to-r from-stone-400 via-stone-100 to-stone-200
                 "
             >
-                Welcome to WagMeet!
+                Welcome to NearFrens
             </h1>
 
             <div className="pt-10">
@@ -37,14 +37,16 @@ export const BannerWelcome = () => {
                         text-2xl 
                         text-stone-200 
                         font-poppins 
-                    ">
+                        "
+                    >
                         We are All Gonna Meet!
                     </p>
                     <p className="
                         text-left 
                         text-sm 
                         text-stone-200 
-                        font-poppins"
+                        font-poppins
+                        "
                     >
                         Built by the community for community.
                     </p>

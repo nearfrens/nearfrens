@@ -1,15 +1,13 @@
 import { ReactElement } from "react";
-import { LayoutFooter } from "./layoutFooter";
-import { LayoutHeader } from "./layoutHeader";
 
 
-export const Page = (props: { main: ReactElement }) =>  {
+export const Page = (props: { header: ReactElement, main: ReactElement, footer: ReactElement }) =>  {
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col">
 
             <header className="min-w-full py-8 px-8 bg-black text-white">
                 <div className="mx-auto max-w-screen-sm md:max-w-screen-md">
-                    <LayoutHeader/>
+                    { props.header }
                 </div>
             </header>
 
@@ -28,7 +26,8 @@ export const Page = (props: { main: ReactElement }) =>  {
                         </div>
                     </div>
 
-                    <LayoutFooter/>
+                    { props.footer }
+                    
                 </div>
             </footer>
 
