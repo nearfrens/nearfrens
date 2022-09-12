@@ -17,20 +17,20 @@ export const BannerBlockchains = () => {
                     Continiously adding support for the most in-demand chains.
                 </p>
                 
-                <div className="mt-20 flex flex-row items-center justify-center gap-16">
+                <div className="mt-20 flex flex-row items-center justify-center gap-8">
 
                     <BannerIcon 
                         logo={ <EthereumIcon className="w-20 h-20"/> }
                         href="https://ethereum.org"
                         name="Ethereum"
-                        legend="Coming soon"
+                        legend="Live"
                     />
 
                     <BannerIcon 
                         logo={ <PolygonIcon className="w-20 h-20 text-purple-500"/> }
                         href="https://polygon.technology/"
                         name="Polygon"
-                        legend="Coming soon"
+                        legend="Live"
                     />       
 
                     <BannerIcon 

@@ -6,14 +6,15 @@ export const BannerIcon = (props: {logo: ReactElement, name: string, legend: str
         <a href={ props.href } target="_blank" rel="noopener noreferrer">
 
             <div className="
-                flex flex-col items-center justify-center gap-2 
-                group"
+                flex flex-col items-center justify-start gap-2 
+                group
+                "
             >
                 
                 <div className="
                     px-6 pt-6 pb-3
                     bg-stone-900 hover:bg-stone-800
-                    flex flex-col items-center justify-between gap-5 
+                    flex flex-col items-center justify-start gap-5 
                     rounded-xl 
                     "
                 >

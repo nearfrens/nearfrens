@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { MapButtonWallet } from './mapButtonWallet';
+import { MapWalletConnect } from './mapWalletConnect';
 import { MapButtonMenu } from "./mapButtonMenu";
 import { MapButtonZoomInOut } from './mapButtonZoomInOut';
 import { PublicIconForNearFrensWithText } from '../icons/publicIcon';
@@ -13,6 +13,7 @@ import mapboxgl from "mapbox-gl"; // eslint-disable-line import/no-webpack-loade
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
+
 
 
 export const MapPage = () =>  {
@@ -113,7 +114,7 @@ export const MapPage = () =>  {
                 </div>
 
                 <div className="flex flex-row items-center justify-start absolute top-5 right-5 gap-2">
-                    <MapButtonWallet />
+                    <MapWalletConnect/>
                     <MapButtonMenu />
                 </div>
 
