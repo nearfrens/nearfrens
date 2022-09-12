@@ -102,7 +102,15 @@ export const MapPage = () =>  {
                     ref={ mapContainer }
                 />
 
-                <div className="absolute top-5 left-10 bg-stone-800 rounded-lg pl-2 py-2 pr-5" onClick={() => navigate("/about")}>
+                <div className="
+                    absolute top-5 left-10 
+                    flex items-center
+                    pl-2 pr-5 py-1.5 
+                    bg-stone-800 
+                    rounded-lg 
+                    " 
+                    onClick={() => navigate("/about")}
+                >
                     <PublicIconForNearFrensWithText />
                 </div>
 

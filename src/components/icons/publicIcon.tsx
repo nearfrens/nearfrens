@@ -76,7 +76,7 @@ export const PublicIconForNearFrens = () => {
         <PublicIcon
             name=""
             href={ null }
-            symbol={ <NearFrensSvg className="h-8 w-8 text-stone-200 hover:text-white" /> }
+            symbol={ <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" /> }
         />
     )
 }
@@ -91,7 +91,7 @@ export const PublicIconForNearFrensWithText = () => {
                 <PublicIconForNearFrens />
             </div>
             <div className="
-                text-xl 
+                text-lg
                 text-stone-200 group-hover:text-white
                 font-poppins
                 "
