@@ -16,7 +16,7 @@ export const mapYourPositionsSlice = createSlice({
     initialState,
     reducers: {
         append: (state, action: PayloadAction<MarkerData>) => {
-            return {"markers": [ ... state.markers, action.payload ]};
+            return {"markers": [ ...state.markers, action.payload ]};
         },
         pop: (state, action: PayloadAction<MarkerData>) => {
             console.log(action.payload.uuid);
