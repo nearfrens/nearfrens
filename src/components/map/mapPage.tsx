@@ -12,6 +12,7 @@ import { MapPins, UserPin } from './mapPins';
 import mapboxgl, { MapLayerMouseEvent } from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { ViewStateChangeEvent } from 'react-map-gl';
+import { useNetwork } from "wagmi";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
 
@@ -36,6 +37,10 @@ export const MapPage = () =>  {
         setMapCoordPosition({longitude: lng, latitude: lat});
     }
 
+    const { chain, chains } = useNetwork();
+    console.log("chian", chain);
+    console.log(chains);
+
     return (
         <div className="">
             <main className="relative w-screen h-screen">
@@ -57,7 +62,7 @@ export const MapPage = () =>  {
                         <MapPins/>
                         <UserPin/>
                     </div>
-                    
+
                     <div className="absolute inset-x-0 top-0 flex flex-row px-10 pt-7 justify-between">
                         <div className="
                             h-9

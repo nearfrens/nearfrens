@@ -16,6 +16,9 @@ const { chains, provider } = configureChains(
     chain.goerli,
     chain.mainnet,
     chain.polygon,
+    chain.polygonMumbai,
+    chain.optimism,
+    chain.optimismGoerli,
   ],
   [
     alchemyProvider({ apiKey: envAlchemyId }), 
