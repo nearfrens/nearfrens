@@ -14,7 +14,7 @@ const contractAddress:string = process.env.REACT_APP_CONTRACT_ON_GOERLI!;
 export const Positions = (props: { onClick: () => void } ) => {
     const [ userStatus, appendUserStatus, resetUserStatus ] = useUserStatus();
     const { address } = useAccount();
-    const { data } = useContractRead({
+    useContractRead({
         addressOrName: contractAddress,
         contractInterface: contractAbi,
         functionName: "getListOfUserPositions",
