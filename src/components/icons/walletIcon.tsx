@@ -20,5 +20,3 @@ export const WalletConnectIcon = () => {
         <WalletConnect className="h-8 w-8" />
     );
 }
-
-

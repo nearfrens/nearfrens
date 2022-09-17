@@ -1,14 +1,11 @@
-import { ReactEventHandler } from "react";
 import { BookmarkIcon, Cog8ToothIcon, MapPinIcon, PencilSquareIcon, PuzzlePieceIcon, ServerIcon, UserPlusIcon } from "@heroicons/react/24/outline";
-
-import { HorizontalLine } from "../common/horizontalLine";
-import { PublicIconForDiscord, PublicIconForGithub, PublicIconForTelegram, PublicIconForTwitter } from "../icons/publicIcon";
-
+import { HorizontalLine } from "../../common/horizontalLine";
+import { PublicIconForDiscord, PublicIconForGithub, PublicIconForTelegram, PublicIconForTwitter } from "../../icons/publicIcon";
 import { MapButtonSliderItem } from "./mapButtonSliderItem";
 import { MapButtonSliderTitle } from "./mapButtonSliderTitle";
 
 
-export const MapButtonMenuNav = (props: { onClose?: ReactEventHandler }) => {
+export const MapButtonMenuNav = (props: { onClose: React.DispatchWithoutAction }) => {
     return (
         <div className="min-h-full flex flex-col items-stretch justify-between pointer-events-auto">
 

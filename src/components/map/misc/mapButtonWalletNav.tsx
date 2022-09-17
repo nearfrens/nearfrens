@@ -1,8 +1,8 @@
 import { ReactEventHandler } from "react";
 import { UserIcon } from "@heroicons/react/24/outline";
 
-import { HorizontalLine } from "../common/horizontalLine";
-import { CoinbaseWalletIcon, MetaMaskIcon, WalletConnectIcon } from "../icons/walletIcon";
+import { HorizontalLine } from "../../common/horizontalLine";
+import { CoinbaseWalletIcon, MetaMaskIcon, WalletConnectIcon } from "../../icons/walletIcon";
 
 import { MapButtonSliderItem } from "./mapButtonSliderItem";
 import { MapButtonSliderTitle } from "./mapButtonSliderTitle";

@@ -9,15 +9,27 @@
 >
     <circle fill="null" cx="250" cy="250" r="240" stroke="currentColor" stroke-width="23"/>
     <text 
-        x="250" 
+        x="208" 
         y="250" 
         font-family="Verdana"
         font-size="188"
         font-style="italic"
-        fill="currentColor"
+        fill="white"
         text-anchor="middle"
         dominant-baseline="middle"
     >
-        NF
+        N
+    </text>
+    <text 
+        x="292"
+        y="250" 
+        font-family="Verdana"
+        font-size="188"
+        font-style="italic"
+        fill="white"
+        text-anchor="middle"
+        dominant-baseline="middle"
+    >
+        F
     </text>
 </svg>

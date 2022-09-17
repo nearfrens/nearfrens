@@ -6,7 +6,7 @@ import { ReactComponent as PoapIcon } from "../icons/svg/poap.svg";
 
 export const BannerCommunities = () => {
     return (
-        <div className="my-24 flex flex-col items-center justify-center align-middle">
+        <div className="my-16 flex flex-col items-center justify-center align-middle">
 
                 <h2 className="text-left text-3xl font-poppins">
                     Meet nearby frens and community members

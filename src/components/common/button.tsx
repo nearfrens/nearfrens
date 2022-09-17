@@ -1,24 +1,49 @@
-import { ReactEventHandler } from "react";
+import { ReactElement, ReactEventHandler } from "react";
 
-export const Button = (props: { text: string, onClick?: ReactEventHandler }) => {
+interface IButton {
+    text: string|ReactElement|null;
+    icon?: ReactElement|null; 
+    onClick?: ReactEventHandler;
+    disabled?: boolean|undefined;
+}
+
+export const Button = (props: IButton) => {
     return (
         <button
-            onClick={ props.onClick }
             className="
+            w-full            
+            flex flex-row items-center justify-center
             px-3
-            py-1.5
+            h-9            
             border
             border-0
             rounded-lg
             font-poppins 
             font-bold
             text-md
-            text-stone-200 hover:text-white 
-            bg-gradient-to-r from-stone-700 to-stone-800 hover:to-stone-700
+            text-stone-200 hover:text-white
+            bg-stone-800 hover:bg-stone-black
             "
-            type="button"
+            // bg-gradient-to-r from-pink-600 to-blue-600
+            onClick={ props.onClick }
+            type={ "button" }
+            disabled={ props.disabled }
         >
-            { props.text }
+            <div className="flex flex-row items-center justify-center">
+                <div>
+                    { props.icon }
+                </div>
+                {
+                    ( !props.disabled ) ?
+                        <div>
+                            { props.text }
+                        </div> :
+                        <div className="text-stone-500">
+                            { props.text }
+                        </div>
+
+                }
+            </div>
         </button>
     );
 }

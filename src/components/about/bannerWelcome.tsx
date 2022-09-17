@@ -39,7 +39,7 @@ export const BannerWelcome = () => {
                         font-poppins 
                         "
                     >
-                        We are All Gonna Meet!
+                        WagMeet! We are All Gonna Meet!
                     </p>
                     <p className="
                         text-left 
@@ -48,7 +48,7 @@ export const BannerWelcome = () => {
                         font-poppins
                         "
                     >
-                        Built by the community for community.
+                        Built by the community for the communities.
                     </p>
                 </div>
 

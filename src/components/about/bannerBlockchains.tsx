@@ -7,7 +7,7 @@ import { BannerIcon } from "./bannerIcon";
 
 export const BannerBlockchains = () => {
     return (
-        <div className="my-24 flex flex-col items-center justify-center align-middle">
+        <div className="my-16 flex flex-col items-center justify-center align-middle">
 
                 <h2 className="text-left text-3xl  font-poppins">
                     Meet Multi-chain.

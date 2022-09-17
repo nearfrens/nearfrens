@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Transition, Dialog } from "@headlessui/react";
-import { MapButton } from "./mapButton";
 import { MapButtonMenuNav } from "./mapButtonMenuNav";
+import { Button } from "../../common/button";
 
 
 export const MapButtonMenu = () => {
@@ -13,8 +13,9 @@ export const MapButtonMenu = () => {
     return (
         <div>
 
-            <MapButton
-                symbol={ <Bars3Icon className="h-6 w-6 text-stone-200 hover:text-white" /> }
+            <Button
+                text={ null } //<div className="pl-2"> Menu </div> }
+                icon={ <Bars3Icon className="h-6 w-6 text-stone-200 hover:text-white" /> }
                 onClick={ switchOpen }
             />
     

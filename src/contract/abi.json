@@ -1,0 +1,378 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "addressToLastCheckInData",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "int32",
+                        "name": "latitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "int32",
+                        "name": "longitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "status",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct NearFrens.Position",
+                "name": "_position",
+                "type": "tuple"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_zone",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "addressToPosition",
+        "outputs": [
+            {
+                "internalType": "int32",
+                "name": "latitude",
+                "type": "int32"
+            },
+            {
+                "internalType": "int32",
+                "name": "longitude",
+                "type": "int32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "int32",
+                "name": "_latitude",
+                "type": "int32"
+            },
+            {
+                "internalType": "int32",
+                "name": "_longitude",
+                "type": "int32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_zoneID",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address[]",
+                "name": "_collections",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_tokenIDs",
+                "type": "uint256[]"
+            },
+            {
+                "internalType": "string",
+                "name": "_status",
+                "type": "string"
+            }
+        ],
+        "name": "checkIn",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "collectionToZoneToPosition",
+        "outputs": [
+            {
+                "internalType": "int32",
+                "name": "latitude",
+                "type": "int32"
+            },
+            {
+                "internalType": "int32",
+                "name": "longitude",
+                "type": "int32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "status",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "name": "getListOfUserPositions",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "int32",
+                        "name": "latitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "int32",
+                        "name": "longitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "status",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct NearFrens.Position[]",
+                "name": "positions",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "collections",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256",
+                "name": "zone",
+                "type": "uint256"
+            }
+        ],
+        "name": "getPositionsforCollections",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "int32",
+                        "name": "latitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "int32",
+                        "name": "longitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "status",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct NearFrens.Position[]",
+                "name": "_data1",
+                "type": "tuple[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "int32",
+                        "name": "latitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "int32",
+                        "name": "longitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "status",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct NearFrens.Position[]",
+                "name": "_data2",
+                "type": "tuple[]"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "int32",
+                        "name": "latitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "int32",
+                        "name": "longitude",
+                        "type": "int32"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "status",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct NearFrens.Position[]",
+                "name": "_data3",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "returnPositionData",
+        "outputs": [
+            {
+                "internalType": "int32",
+                "name": "",
+                "type": "int32"
+            },
+            {
+                "internalType": "int32",
+                "name": "",
+                "type": "int32"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

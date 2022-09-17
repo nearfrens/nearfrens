@@ -1,4 +1,4 @@
-import { MapParameters } from "./mapInterface";
+import { MapParameters } from "../mapInterface";
 
 const MapDisplayTableLine = (props: { name: string, value: string } ) => {
     return (
@@ -40,19 +40,19 @@ export const MapDisplayTable = (props: { params: MapParameters }) => {
                 <tbody>
                     <MapDisplayTableLine 
                         name="Map Lat."
-                        value={ props.params.mapCoord.lat.toFixed(precision) }
+                        value={ props.params.mapCoord.latitude.toFixed(precision) }
                     />
                     <MapDisplayTableLine 
                         name="Map Lng."
-                        value={ props.params.mapCoord.lng.toFixed(precision) }
+                        value={ props.params.mapCoord.longitude.toFixed(precision) }
                     />
                     <MapDisplayTableLine 
                         name="Mouse Lat."
-                        value={ props.params.mouseCoord.lat.toFixed(precision) }
+                        value={ props.params.mouseCoord.latitude.toFixed(precision) }
                     />
                     <MapDisplayTableLine 
                         name="Mouse Lng."
-                        value={ props.params.mouseCoord.lng.toFixed(precision) }
+                        value={ props.params.mouseCoord.longitude.toFixed(precision) }
                     />
                     <MapDisplayTableLine 
                         name="Zoom"

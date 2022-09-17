@@ -20,11 +20,40 @@
     pointer-events: none;
 } */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-h1, h2, h3, h4, h5, h6, p {
-    @apply font-poppins
+
+@tailwind base;
+@layer base {
+    
+    h1, h2, h3, h4, h5, h6, p, div {
+        @apply font-poppins text-stone-200
+    }
+
+    h1 {
+        @apply text-8xl text-white my-8
+    }
+    
+    h2 {
+        @apply text-5xl text-white my-4
+    }
+    
+    h3 {
+        @apply text-2xl text-white my-4
+    }
+    
+    h4 {
+        @apply text-xl
+    }
+    
+    h5 {
+        @apply text-lg
+    }
+
+    h5 {
+        @apply text-base
+    }
+
 }
 
+@tailwind components;
+@tailwind utilities;

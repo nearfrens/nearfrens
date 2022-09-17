@@ -7,7 +7,6 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { getDefaultWallets, RainbowKitProvider, midnightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-
 import "./App.css";
 
 const envAlchemyId: string = process.env.REACT_ALCHEMY_ID!;
@@ -16,9 +15,7 @@ const { chains, provider } = configureChains(
   [
     chain.goerli,
     chain.mainnet,
-    chain.polygon, 
-    // chain.optimism, 
-    // chain.arbitrum
+    chain.polygon,
   ],
   [
     alchemyProvider({ apiKey: envAlchemyId }), 

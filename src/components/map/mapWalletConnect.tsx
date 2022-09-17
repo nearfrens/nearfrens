@@ -39,33 +39,56 @@ export const MapWalletConnect = () => {
               {(() => {
                 if (!connected) {
                   return (
-                    <Button text="Connect Wallet" onClick={openConnectModal}/>
+                    <button 
+                      className="
+                        px-3
+                        h-9
+                        flex flex-row items-center justify-start
+                        bg-stone-800
+                        bg-opacity-40 hover:bg-opacity-50
+                        font-poppins
+                        text-sm
+                        text-stone-200 hover:text-white
+                        rounded-lg
+                        "
+                      onClick={ openConnectModal } 
+                      type="button" 
+                    >
+                      Connect Wallet
+                    </button>
                   );
                 }
   
                 if (chain.unsupported) {
                   return (
-                    <button onClick={openChainModal} type="button" className="text-stone-200 bg-stone-800 rounded-lg px-4 py-3 font-poppins">
-                        Wrong network
-                    </button>
+                    <Button text="wrong network" onClick={ openChainModal } />
                   );
                 }
   
                 return (
-                  <div style={{ display: 'flex', gap: 12 }} className="">
+                  <div className="flex flex-row items-center justify-start gap-2">
                     
                     <button
-                      className="flex items-center text-stone-200 font-poppins rounded-lg px-4 py-1.5 bg-stone-800 gap-4"
+                      className="
+                        px-3
+                        h-9
+                        flex flex-row items-center justify-start gap-2
+                        bg-stone-800
+                        bg-opacity-40 hover:bg-opacity-50
+                        font-poppins
+                        text-sm
+                        text-stone-200 hover:text-white
+                        rounded-lg
+                        "
                       onClick={ openChainModal }
                       type="button"
                     >
-                      {chain.hasIcon && (
-                        <div
-                        >
+                      { chain.hasIcon && (
+                        <div>
                           {chain.iconUrl && (
                             <img
-                              alt={chain.name ?? 'Chain icon'}
-                              src={chain.iconUrl}
+                              alt={ chain.name ?? 'Chain icon' }
+                              src={ chain.iconUrl }
                               style={{ width: 16, height: 16 }}
                             />
                           )}
@@ -74,12 +97,26 @@ export const MapWalletConnect = () => {
                       {chain.name}
                     </button>
   
-                    <button onClick={openAccountModal} type="button" className="text-stone-200 font-poppins rounded-lg px-3 py-1.5 bg-stone-800">
-                      <div className="flex flex-row items-center justify-start gap-4">
+                    <button 
+                      className="
+                        px-3
+                        h-9
+                        flex flex-row items-center justify-start
+                        bg-stone-800
+                        bg-opacity-40 hover:bg-opacity-50
+                        font-poppins
+                        text-sm
+                        text-stone-200 hover:text-white
+                        rounded-lg
+                        "
+                      onClick={openAccountModal} 
+                      type="button" 
+                    >
+                      <div className="flex flex-row items-center justify-start gap-2">
                         <div>
                           { account.displayBalance ? `${account.displayBalance}` : ''}
                         </div>
-                        <div className="bg-stone-600 rounded-lg px-2">
+                        <div className="bg-stone-700 rounded-lg px-2">
                           { account.displayName }
                         </div>
                       </div>
