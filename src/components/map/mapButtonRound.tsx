@@ -10,7 +10,7 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
             py-2 px-2
             text-sm 
             text-stone-100 hover:text-white
-            bg-stone-800
+            bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60
             bg-opacity-50 hover:bg-opacity-60
             rounded-full
             "
