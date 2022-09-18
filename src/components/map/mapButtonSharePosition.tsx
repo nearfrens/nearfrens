@@ -29,27 +29,34 @@ const TransactionParameters = (props: {data: ITransactionData}) => {
             lines={[
                     <TableLineWithTwoColumn
                         label="Latitude"
-                        value={ props.data.latitude.toString() }
+                        value={ props.data.latitude?.toString() }
+                        textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="Longitude"
-                        value={ props.data.longitude.toString() }
+                        value={ props.data.longitude?.toString() }
+                        textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="ZoneId"
-                        value={ props.data.zoneId.toString() }
+                        value={ props.data.zoneId?.toString() }
+                        textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="Status"
                         value={ props.data.status }
+                        textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="Collections"
-                        value={ truncateEthAddress(props.data.collections[0]).toString() }
+                        // value={ (props.data.collections) ? truncateEthAddress(props.data.collections[0]) : "" }
+                        value=""
+                        textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="tokenIds"
-                        value={ props.data.tokenId.toString() }
+                        value={ props.data.tokenId?.toString() }
+                        textSize="text-xs"
                     />
             ]}
         />
@@ -63,22 +70,24 @@ interface IPositionParameters {
 }
 
 const PositionParameters = (props: {pos: IPositionParameters}) => {
-    const dateTimestamp = new Date(props.pos.timestamp).toISOString();
+    // const dateTimestamp = new Date(props.pos.timestamp).toISOString();
     return (
         <Table
             lines={[
                     <TableLineWithTwoColumn
                         label="Latitude"
-                        value={ props.pos.latitude.toString() }
+                        value={ props.pos.latitude?.toString() }
+                        textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="Longitude"
-                        value={ props.pos.longitude.toString() }
+                        value={ props.pos.longitude?.toString() }
+                        textSize="text-xs"
                     />,
-                    <TableLineWithTwoColumn 
-                        label="Timestamp"
-                        value={ dateTimestamp }
-                    />,
+                    // <TableLineWithTwoColumn 
+                    //     label="Timestamp"
+                    //     value={ dateTimestamp }
+                    // />,
             ]}
         />
     );
@@ -90,6 +99,9 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     const [mapCoordPosition] = useMapCoordPosition();
     const [gasLimit, setGasLimit] = useState<number>(400000);
     const [status, setStatus] = useState<string>("");
+    const [zoneId, setZoneId] = useState<number|null>(null);
+    const [tokenId, setTokenId] = useState<number|null>(null);
+    const [collectionAddress, setCollectionAddress] = useState<string|null>(null);
 
     const pos: IPositionParameters = {
         longitude: mapCoordPosition?.longitude!,
@@ -101,19 +113,23 @@ export const SharePosition = (props: { onClick: () => void } ) => {
         longitude: convertLngFloatToInt32(mapCoordPosition?.longitude!),
         latitude: convertLatFloatToInt32(mapCoordPosition?.latitude!),
         status: status,
-        zoneId: 1,
-        collections: [ "0x1b974541C78D6f4b61133962819Ed3ceA726512d", "0x2363FC419368ea1EeE89d17828af66f800f86c2e" ],
-        tokenId: [ 1, 2 ],
+        zoneId: zoneId!,
+        collections: [ collectionAddress! ],
+        tokenId: [ tokenId! ],
     }
+
+    console.log("txData", txData);
+    console.log("contractAbi", contractAbi);
+    console.log("contractAddress", contractAddress);
 
     const { config, error } = usePrepareContractWrite({
         addressOrName: contractAddress,
         contractInterface: contractAbi,
         functionName: "checkIn",
         args: [
-            txData.longitude.toString(),
-            txData.latitude.toString(),
-            txData.zoneId.toString(),
+            txData.longitude,
+            txData.latitude,
+            txData.zoneId,
             txData.collections,
             txData.tokenId,
             txData.status,
@@ -133,7 +149,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
 
     let txStatus = null;
     if ( error ) {
-        txStatus = <Log level="error" msg="Error" />
+        txStatus = <Log level="error" msg="All parameters must be filled" />
     } else if ( writeContract.isSuccess ) {
         if (tx.isLoading) {
             txStatus = <Log level="info" msg="Waiting for transaction status" />        
@@ -156,15 +172,55 @@ export const SharePosition = (props: { onClick: () => void } ) => {
 
             <MapModalTitle title="Share position" />
 
-            <div className="flex flex-col justify-start items-strech gap-4">
-                <MapInput
-                    value={ status }
-                    onChange={ setStatus }
-                    placeholder="What's happening ?"
-                    title="Position status"
-                    textPosition="text-left"
-                    textSize="text-sm"
-                />                                     
+            <div className="flex flex-col justify-start items-strech gap-4 overflow-y-auto h-64 mb-4">
+                <div className="w-full flex flex-row items-center gap-2">
+                    <div className="w-full">
+                        <MapInput
+                            value={ status }
+                            onChange={ setStatus }
+                            placeholder="What's happening ?"
+                            title="Position status"
+                            titleSize="text-sm"
+                            textPosition="text-left"
+                            textSize="text-xs"
+                        />
+                    </div>
+                    <div className="w-20">
+                        <MapInput
+                            value={ zoneId }
+                            onChange={ setZoneId }
+                            placeholder=""
+                            title="Zone id"
+                            titleSize="text-sm"
+                            textPosition="text-right"
+                            textSize="text-xs"
+                        />                 
+                    </div>   
+                </div>
+                <div className="w-full flex flex-row items-center gap-2">
+                    <div className="w-full">
+                        <MapInput
+                            value={ collectionAddress }
+                            onChange={ setCollectionAddress }
+                            placeholder=""
+                            title="Collection address"
+                            titleSize="text-sm"
+                            textPosition="text-left"
+                            textSize="text-xs"
+                        />
+                    </div>
+                    <div className="w-20">
+                        <MapInput
+                            value={ tokenId }
+                            onChange={ setTokenId }
+                            placeholder=""
+                            title="Token id"
+                            titleSize="text-sm"
+                            textPosition="text-right"
+                            textSize="text-xs"
+                        />   
+                    </div>
+                </div>                                  
                 <MapDisclosure title="Position parameters" content={ <PositionParameters pos={ pos } />} />
                 <MapDisclosure title="Transaction data" content={ <TransactionParameters data={ txData } />} />            
                 <MapInput
@@ -175,9 +231,10 @@ export const SharePosition = (props: { onClick: () => void } ) => {
                     textSize="text-xs"
                     textPosition="text-right"
                 />            
-                <div className="text-xs">
-                    { txStatus }
-                </div>
+            </div>
+
+            <div className="text-xs">
+                { txStatus }
             </div>
 
             <div className="mt-4 mb-4 flex justify-center gap-4">

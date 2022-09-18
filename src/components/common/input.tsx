@@ -13,6 +13,7 @@ export interface IMapInput {
     onChange: Dispatch<any>,
     placeholder?: string,
     title?: string,
+    titleSize?: string,
     textSize?: string,
     textPosition?: string,
 }
@@ -44,7 +45,10 @@ export const Input = (props: PropsInput) => {
 export const MapInput = (props: IMapInput) => {
     return (
         <div className="w-full flex flex-col justify-start items-start">
-            <div className="text-md">
+            <div className={`
+                ${ props.titleSize? props.textSize  : "text-md"}
+                `}
+            >
                 { props.title }
             </div>
             <div className="w-full py-1 px-2 border border-stone-200 rounded-lg font-poppins">

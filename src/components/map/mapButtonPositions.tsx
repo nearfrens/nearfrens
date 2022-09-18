@@ -11,6 +11,34 @@ import { useUserStatus } from "../../hooks/useUserStatus";
 
 const contractAddress:string = process.env.REACT_APP_CONTRACT_ON_GOERLI!;
 
+export function LoadPositions () {
+    const [ ,appendUserStatus, resetUserStatus ] = useUserStatus();
+    const { address } = useAccount();
+    useContractRead({
+        addressOrName: contractAddress,
+        contractInterface: contractAbi,
+        functionName: "getListOfUserPositions",
+        args: [ address ],
+        cacheOnBlock: true,
+        onSuccess(data) {
+            resetUserStatus();
+            if (address) {
+                for (let item of data.slice().reverse()) {
+                    let userStatus: IUserStatus = {
+                        address: address?.toString(),
+                        longitude: convertLngInt32ToFloat(Number(item.latitude)), // ToDo: change
+                        latitude: convertLatInt32ToFloat(Number(item.longitude)), // ToDo: change
+                        timestamp: item.timestamp.toString(),
+                        status: item.status,                    
+                    }
+                    appendUserStatus(userStatus);
+                }
+            }
+        },
+    });
+}
+
+
 export const Positions = (props: { onClick: () => void } ) => {
     const [ userStatus, appendUserStatus, resetUserStatus ] = useUserStatus();
     const { address } = useAccount();

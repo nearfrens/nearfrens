@@ -5,8 +5,8 @@ import { UserStatus } from '../common/userStatus';
 import { IUserStatus } from '../../interface/user';
 import { Marker, Popup } from 'react-map-gl';
 import { useMapCoordPosition } from '../../hooks/mapCoordPosition';
-import { EthereumIcon, OptimismIcon, PolygonIcon } from '../icons/blockchainIcon';
-import { useNetwork } from 'wagmi';
+import { CurrentChainIcon } from '../icons/blockchainIcon';
+import { ReactComponent as NearFrensSvg } from "../icons/svg/nearfrens.svg";
 
 
 interface IMapMarker {
@@ -37,7 +37,17 @@ export const MapMarker = (props: IMapMarker) => {
             }}
             onClick={() => props.openPopup(props.index)}
         >
-            <PublicIconForNearFrens/>
+            {
+                ( props.index === 0 ) ?
+                <div className="border border-2 border-pink-500 flex justify-center items-center rounded-full">
+                    <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
+                </div>
+                :
+                <div className="border border-2 border-blue-500 flex justify-center items-center rounded-full">
+                    <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
+                </div>
+            }
+
         </Marker>
     );
 }
@@ -62,23 +72,6 @@ export const MapPopup = (props: IMapPopup) => {
 
 export const UserPin = () => {
     const [ mapCoordPosition, setMapCoordPosition ] = useMapCoordPosition();
-    const { chain } = useNetwork();
-    let icon;
-    if (chain?.name === "Goerli") {
-        icon = <EthereumIcon/>;
-    } else if (chain?.name === "Ethereum") {
-        icon = <EthereumIcon/>;
-    } else if (chain?.name === "Polygon") {
-        icon = <PolygonIcon/>;
-    } else if (chain?.name === "Polygon Mumbai") {
-        icon = <PolygonIcon/>;        
-    } else if (chain?.name === "Optimism") {
-        icon = <OptimismIcon />;        
-    } else if (chain?.name === "Optimism Goerli") {
-        icon = <OptimismIcon />;
-    } else {
-        icon = <div className="bg-red-500 w-6 h-6 rounded-full"></div>;
-    }
     return (
         <div>
             {
@@ -99,7 +92,7 @@ export const UserPin = () => {
                     onClick={ () => setMapCoordPosition(null) }
                 >
                     <div className="bg-transparent rounded-full w-7 h-7">
-                        { icon }
+                        <CurrentChainIcon />
                     </div>
                 </Marker>
             }
@@ -117,7 +110,8 @@ export const MapPins = () => {
                     userStatus.map(
                         (status, key) => {
                             return (
-                                <MapMarker 
+                                <MapMarker
+                                    key={ key }
                                     index={ key } 
                                     status={ status } 
                                     openPopup= { (index) => setIndexPopup(index) }

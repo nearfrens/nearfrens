@@ -5,27 +5,30 @@ import { useMapCoordPosition } from '../../hooks/mapCoordPosition';
 import { useMapStyle } from "../../hooks/mapStyle";
 import { useMapZoom } from "../../hooks/mapZoom";
 import { MapWalletConnect } from './mapWalletConnect';
-import { MapButtonPositions } from './mapButtonPositions';
+import { LoadPositions, MapButtonPositions } from './mapButtonPositions';
 import { MapButtonParameters } from './mapButtonParameters';
 import { MapButtonSharePosition } from './mapButtonSharePosition';
 import { MapPins, UserPin } from './mapPins';
 import mapboxgl, { MapLayerMouseEvent } from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { ViewStateChangeEvent } from 'react-map-gl';
-import { useNetwork } from "wagmi";
-
+import { useAccount } from "wagmi";
+import { useEffect } from "react";
+import { useUserStatus } from "../../hooks/useUserStatus";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
 
 
 export const MapPage = () =>  {
 
     const navigate = useNavigate();
+    const { isConnected } = useAccount();
       
     const [ mapCoordWindow, setMapCoordWindow ] = useMapCoordWindow();
     const [ , setMapCoordPosition ] = useMapCoordPosition();
     const [ mapStyle ] = useMapStyle();
     const [ mapZoom, setMapZoom ] = useMapZoom();
-
+    const [ ,,resetUserStatus ] = useUserStatus();
+    
     function onMapMove (event: ViewStateChangeEvent) {
         const coord = event.target.getCenter();
         setMapCoordWindow({ longitude: coord.lng, latitude: coord.lat});
@@ -37,9 +40,13 @@ export const MapPage = () =>  {
         setMapCoordPosition({longitude: lng, latitude: lat});
     }
 
-    const { chain, chains } = useNetwork();
-    console.log("chian", chain);
-    console.log(chains);
+    LoadPositions();
+
+    useEffect(() => {
+        if (!isConnected) {
+            resetUserStatus();
+        }
+    })
 
     return (
         <div className="">

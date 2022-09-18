@@ -9,19 +9,34 @@ import { getDefaultWallets, RainbowKitProvider, midnightTheme } from "@rainbow-m
 import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
 
-const envAlchemyId: string = process.env.REACT_ALCHEMY_ID!;
+interface ProviderKey {
+  ethereumMainet?: string;
+  ethereumGoerli?: string;
+  polygonMainet?: string;
+  polygonMumbai?: string;
+  optimismMainet?: string;
+  optimismGoerli?: string;
+}
+
+const providerKey: ProviderKey = {
+  ethereumGoerli: process.env.REACT_APP_ALCHEMY_ETHEREUM_GOERLI,
+  polygonMumbai: process.env.REACT_APP_ALCHEMY_POLYGON_MUMBAI,
+  optimismGoerli: process.env.REACT_APP_ALCHEMY_OPTIMISM_GOERLI,
+};
 
 const { chains, provider } = configureChains(
   [
+    // chain.mainnet,
+    // chain.polygon,
+    // chain.optimism,
     chain.goerli,
-    chain.mainnet,
-    chain.polygon,
     chain.polygonMumbai,
-    chain.optimism,
     chain.optimismGoerli,
   ],
   [
-    alchemyProvider({ apiKey: envAlchemyId }), 
+    alchemyProvider({ apiKey: providerKey.ethereumGoerli }),
+    alchemyProvider({ apiKey: providerKey.polygonMumbai! }), 
+    alchemyProvider({ apiKey: providerKey.optimismGoerli! }),
     publicProvider()
   ]
 );

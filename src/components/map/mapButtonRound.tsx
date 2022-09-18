@@ -9,15 +9,16 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
             className="
             py-2 px-2
             text-sm 
-            text-stone-200 hover:text-white
-            bg-stone-800 bg-opacity-40 hover:bg-opacity-50
+            text-stone-100 hover:text-white
+            bg-stone-800
+            bg-opacity-50 hover:bg-opacity-60
             rounded-full
             "
             onClick={ props.onClick }
         >
             { props.icon }
         </button>
-    );        
+    );
 }
 
 export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {

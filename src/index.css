@@ -1,26 +1,3 @@
-.map-container {
-    width: 100vw;
-    height: 100vh;
-}
-
-.mapboxgl-ctrl-attrib-inner {
-    display: none !important;
-}
-
-.mapboxgl-marker {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: red;
-}
-
-/* .leaflet-bottom, .leaflet-top {
-    z-index: -10 !important;
-    position: absolute;
-    pointer-events: none;
-} */
-
-
 
 @tailwind base;
 @layer base {

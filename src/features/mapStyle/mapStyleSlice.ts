@@ -7,7 +7,7 @@ interface mapStyleState {
 }
 
 export const initialState: mapStyleState = {
-    mapStyle: { style: OptionMapStyles.STREET },
+    mapStyle: { style: OptionMapStyles.DARK }
 }
 
 export const mapStyleSlice = createSlice({
