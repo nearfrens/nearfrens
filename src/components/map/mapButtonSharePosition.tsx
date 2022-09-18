@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import truncateEthAddress from "truncate-eth-address";
+// import truncateEthAddress from "truncate-eth-address";
 import { Button } from "../common/button";
 import { Log } from "../common/log";
 import { MapInput } from "../common/input";
@@ -117,10 +117,6 @@ export const SharePosition = (props: { onClick: () => void } ) => {
         collections: [ collectionAddress! ],
         tokenId: [ tokenId! ],
     }
-
-    console.log("txData", txData);
-    console.log("contractAbi", contractAbi);
-    console.log("contractAddress", contractAddress);
 
     const { config, error } = usePrepareContractWrite({
         addressOrName: contractAddress,

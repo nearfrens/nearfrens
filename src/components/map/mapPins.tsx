@@ -1,5 +1,5 @@
 import { useState, Dispatch } from 'react';
-import { PublicIconForNearFrens } from '../icons/publicIcon';
+// import { PublicIconForNearFrens } from '../icons/publicIcon';
 import { useUserStatus } from '../../hooks/useUserStatus';
 import { UserStatus } from '../common/userStatus';
 import { IUserStatus } from '../../interface/user';
