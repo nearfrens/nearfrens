@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { set } from "./../features/mapCoordPosition/mapCoordPositionSlice";
-import { Coordinate } from "./../interface/map";
+import { set } from "../features/mapCoordPositionSlice";
+import { Coordinate } from "../interface/map";
 
 
 export const useMapCoordPosition = (): [Coordinate|null, React.Dispatch<Coordinate|null>] => {

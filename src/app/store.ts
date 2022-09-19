@@ -5,12 +5,13 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 
-import mapCoordWindowReducer from './../features/mapCoordWindow/mapCoordWindowSlice';
-import mapCoordPositionReducer from "./../features/mapCoordPosition/mapCoordPositionSlice";
-import mapStyleReducer from "./../features/mapStyle/mapStyleSlice";
-import mapYourPositionsReducer from "./../features/mapYourPositions/mapYourPositionsSlice";
-import mapZoomReducer from "./../features/mapZoom/mapZoomSlice";
-import userStatusReducer from "./../features/userStatus/userStatusSlice";
+import mapCoordWindowReducer from '../features/mapCoordWindowSlice';
+import mapCoordPositionReducer from "../features/mapCoordPositionSlice";
+import mapStyleReducer from "../features/mapStyleSlice";
+import mapYourPositionsReducer from "../features/mapYourPositionsSlice";
+import mapZoomReducer from "../features/mapZoomSlice";
+import userStatusReducer from "../features/userStatusSlice";
+import paramsStyleReducer from "../features/paramsStyleSlice";
 
 const reducers = combineReducers({
     mapCoordWindow: mapCoordWindowReducer,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
     mapStyle: mapStyleReducer,
     mapYourPositions: mapYourPositionsReducer,
     mapZoom: mapZoomReducer,
+    paramsStyle: paramsStyleReducer,
     userStatus: userStatusReducer,
 });
 

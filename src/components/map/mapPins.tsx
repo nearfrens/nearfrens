@@ -4,7 +4,7 @@ import { useUserStatus } from '../../hooks/useUserStatus';
 import { UserStatus } from '../common/userStatus';
 import { IUserStatus } from '../../interface/user';
 import { Marker, Popup } from 'react-map-gl';
-import { useMapCoordPosition } from '../../hooks/mapCoordPosition';
+import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
 import { CurrentChainIcon } from '../icons/blockchainIcon';
 import { ReactComponent as NearFrensSvg } from "../icons/svg/nearfrens.svg";
 

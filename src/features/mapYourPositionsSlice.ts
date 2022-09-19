@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { MarkerData } from "../../interface/map";
+import { RootState } from "../app/store";
+import { MarkerData } from "../interface/map";
 
 
 export interface MapYourPositionsState {

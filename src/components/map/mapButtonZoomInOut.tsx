@@ -1,5 +1,5 @@
 import { MinusIcon, PlusIcon, } from "@heroicons/react/24/outline";
-import { useMapZoom } from "../../hooks/mapZoom";
+import { useMapZoom } from "../../hooks/useMapZoom";
 
 
 export const MapButtonZoomInOut = () => {

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { MapModal, MapModalTitle } from "./mapModal";
-import { BookmarkButton } from "./mapButtonRound";
+import { BookmarkButton } from "../common/buttonRound";
 import { Button } from "../common/button";
 import { useAccount, useContractRead } from "wagmi";
 import { convertLngInt32ToFloat, convertLatInt32ToFloat } from "./mapFunction";

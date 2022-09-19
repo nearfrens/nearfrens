@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./../../app/store";
-import { MapStyle, OptionMapStyles } from './../../interface/map';
+import { RootState } from "../app/store";
+import { MapStyle, OptionMapStyles } from '../interface/map';
 
 interface mapStyleState {
     mapStyle: MapStyle;

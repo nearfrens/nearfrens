@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { set, decrement, increment } from "../features/mapZoom/mapZoomSlice";
+import { set, decrement, increment } from "../features/mapZoomSlice";
 
 
 export const useMapZoom = (): [number, React.Dispatch<number>, () => void, () => void] => {

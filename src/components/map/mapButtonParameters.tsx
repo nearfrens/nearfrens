@@ -1,12 +1,14 @@
 import { useState } from "react"
-import { ParametersButton } from "./mapButtonRound";
+import { ParametersButton } from "../common/buttonRound";
 import { MapModal, MapModalSubTitle, MapModalTitle } from "./mapModal";
-import { useMapZoom } from "../../hooks/mapZoom";
-import { useMapStyle } from "../../hooks/mapStyle";
-import { useMapCoordWindow } from "../../hooks/mapCoordWindow";
+import { useMapZoom } from "../../hooks/useMapZoom";
+import { useMapStyle } from "../../hooks/useMapStyle";
+import { useMapCoordWindow } from "../../hooks/useMapCoordWindow";
 import { OptionMapStyles } from "../../interface/map";
 import { Button } from "../common/button";
 import { Table, TableLineWithTwoColumn } from "../common/table";
+import { useParamsStyle } from "../../hooks/useParamsStyle";
+import Switch from "../common/switch";
 
 
 export const Parameters = (props: { onClick: () => void } ) => {
@@ -14,6 +16,8 @@ export const Parameters = (props: { onClick: () => void } ) => {
     const [ mapZoom ] = useMapZoom();
     const [ mapCoordWindow ] = useMapCoordWindow();
     const [ , setMapStyle] = useMapStyle();
+    const [ paramsStyle, setParamsStyle] = useParamsStyle();
+    console.log(paramsStyle);
 
     return (
         <div className="w-full px-6 py-2 flex flex-col justify-start gap-2">
@@ -58,6 +62,14 @@ export const Parameters = (props: { onClick: () => void } ) => {
                 }
             />
 
+            <MapModalSubTitle subTitle="Choose Styles"/>
+
+            <Switch 
+                label={ `Enable button style ${ paramsStyle.isFun ? "'Classic'" : "'Fun'" }` }
+                enabled={ paramsStyle.isFun! } 
+                setEnabled={ () => setParamsStyle({isFun: !paramsStyle.isFun })}
+            />
+
             <div className="mt-4 mb-4 flex justify-center">
                 <Button text={ "Close" } onClick = { props.onClick }/>
             </div>
@@ -65,7 +77,6 @@ export const Parameters = (props: { onClick: () => void } ) => {
         </div>
     );
 }
-
 
 export const MapButtonParameters = () => {
     const [isOpen, setIsOpen] = useState(false);

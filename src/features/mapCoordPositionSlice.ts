@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { Coordinate } from "../../interface/map";
+import { RootState } from "../app/store";
+import { Coordinate } from "../interface/map";
 
 interface mapCoordPositionState {
     coordinate: Coordinate|null;

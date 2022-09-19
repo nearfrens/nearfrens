@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { PublicIconForNearFrensWithText } from '../icons/publicIcon';
-import { useMapCoordWindow } from "../../hooks/mapCoordWindow";
-import { useMapCoordPosition } from '../../hooks/mapCoordPosition';
-import { useMapStyle } from "../../hooks/mapStyle";
-import { useMapZoom } from "../../hooks/mapZoom";
+import { useMapCoordWindow } from "../../hooks/useMapCoordWindow";
+import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
+import { useMapStyle } from "../../hooks/useMapStyle";
+import { useMapZoom } from "../../hooks/useMapZoom";
 import { MapWalletConnect } from './mapWalletConnect';
 import { LoadPositions, MapButtonPositions } from './mapButtonPositions';
 import { MapButtonParameters } from './mapButtonParameters';
@@ -15,6 +15,7 @@ import Map, { ViewStateChangeEvent } from 'react-map-gl';
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 import { useUserStatus } from "../../hooks/useUserStatus";
+import { useParamsStyle } from "../../hooks/useParamsStyle";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
 
 
@@ -23,6 +24,7 @@ export const MapPage = () =>  {
     const navigate = useNavigate();
     const { isConnected } = useAccount();
       
+    const [ paramsStyle ] = useParamsStyle();
     const [ mapCoordWindow, setMapCoordWindow ] = useMapCoordWindow();
     const [ , setMapCoordPosition ] = useMapCoordPosition();
     const [ mapStyle ] = useMapStyle();
@@ -71,13 +73,18 @@ export const MapPage = () =>  {
                     </div>
 
                     <div className="absolute inset-x-0 top-0 flex flex-row px-10 pt-7 justify-between">
-                        <div className="
+                        <div className={`
                             h-9
                             px-3
                             flex items-center
                             rounded-lg
-                            bg-stone-800 bg-opacity-40 hover:bg-opacity-50
-                            " 
+                            ${ 
+                                (paramsStyle.isFun) ?
+                                    "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
+                                    :
+                                    "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
+                            }
+                        `}
                             onClick={() => navigate("/about")}
                         >
                             <PublicIconForNearFrensWithText />
@@ -87,13 +94,13 @@ export const MapPage = () =>  {
                         </div>
                     </div>
 
-                    <div className="absolute flex justify-center bottom-12 inset-x-0 px-10">                
+                    <div className="absolute flex justify-center bottom-12 inset-x-0 px-10">
                         <div className="flex flex-row justify-center items-center gap-4">
-                            <MapButtonPositions/>
-                            <MapButtonSharePosition/>
-                            <MapButtonParameters/>
-                        </div>           
-                    </div>                        
+                            <MapButtonPositions />
+                            <MapButtonSharePosition />
+                            <MapButtonParameters />
+                        </div>
+                    </div>                    
 
                 </Map>
 

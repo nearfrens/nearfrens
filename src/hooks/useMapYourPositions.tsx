@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { append, pop } from "../features/mapYourPositions/mapYourPositionsSlice";
+import { append, pop } from "../features/mapYourPositionsSlice";
 import { MarkerData } from "../interface/map";
 
 export const useMapYourPositions = (): [Array<MarkerData>, React.Dispatch<MarkerData>, React.Dispatch<MarkerData>] => {

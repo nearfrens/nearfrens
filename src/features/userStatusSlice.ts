@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-import { IUserStatus } from "../../interface/user";
+import { RootState } from "../app/store";
+import { IUserStatus } from "../interface/user";
 
 export interface UserStatusState {
     status: Array<IUserStatus>;

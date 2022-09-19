@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { set } from "../features/mapStyle/mapStyleSlice";
+import { set } from "../features/mapStyleSlice";
 import { MapStyle } from "../interface/map";
 
 

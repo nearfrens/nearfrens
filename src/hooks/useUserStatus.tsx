@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { IUserStatus } from "../interface/user";
-import { append, reset } from "../features/userStatus/userStatusSlice";
+import { append, reset } from "../features/userStatusSlice";
 import { Dispatch } from "react";
 
 

@@ -1,9 +1,11 @@
 
 import { Button } from '../common/button';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useParamsStyle } from '../../hooks/useParamsStyle';
 
 
 export const MapWalletConnect = () => {
+    const [paramsStyle] = useParamsStyle();
     return (
       <ConnectButton.Custom>
         {({
@@ -40,17 +42,22 @@ export const MapWalletConnect = () => {
                 if (!connected) {
                   return (
                     <button 
-                      className="
+                      className={`
                         px-3
                         h-9
                         flex flex-row items-center justify-start
                         bg-stone-800
-                        bg-opacity-40 hover:bg-opacity-50
+                        ${ 
+                          (paramsStyle.isFun) ?
+                              "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
+                              :
+                              "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
+                        }
                         font-poppins
                         text-sm
                         text-stone-200 hover:text-white
-                        rounded-lg
-                        "
+                        rounded-lg                    
+                      `}                  
                       onClick={ openConnectModal } 
                       type="button" 
                     >
@@ -69,17 +76,22 @@ export const MapWalletConnect = () => {
                   <div className="flex flex-row items-center justify-start gap-2">
                     
                     <button
-                      className="
+                      className={`
                         px-3
                         h-9
                         flex flex-row items-center justify-start gap-2
                         bg-stone-800
-                        bg-opacity-40 hover:bg-opacity-50
+                        ${ 
+                          (paramsStyle.isFun) ?
+                              "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
+                              :
+                              "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
+                        }
                         font-poppins
                         text-sm
                         text-stone-200 hover:text-white
                         rounded-lg
-                        "
+                      `}
                       onClick={ openChainModal }
                       type="button"
                     >
@@ -98,17 +110,22 @@ export const MapWalletConnect = () => {
                     </button>
   
                     <button 
-                      className="
+                      className={`                      
                         px-3
                         h-9
                         flex flex-row items-center justify-start
                         bg-stone-800
-                        bg-opacity-40 hover:bg-opacity-50
+                        ${
+                          (paramsStyle.isFun) ?
+                              "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
+                              :
+                              "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
+                        }
                         font-poppins
                         text-sm
                         text-stone-200 hover:text-white
                         rounded-lg
-                        "
+                      `}
                       onClick={openAccountModal} 
                       type="button" 
                     >
