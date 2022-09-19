@@ -12,7 +12,7 @@ import { useUserStatus } from "../../hooks/useUserStatus";
 const contractAddress:string = process.env.REACT_APP_CONTRACT_ON_GOERLI!;
 
 export function LoadPositions () {
-    const [ ,appendUserStatus, resetUserStatus ] = useUserStatus();
+    const [, appendUserStatus, resetUserStatus ] = useUserStatus();
     const { address } = useAccount();
     useContractRead({
         addressOrName: contractAddress,
@@ -21,17 +21,34 @@ export function LoadPositions () {
         args: [ address ],
         cacheOnBlock: true,
         onSuccess(data) {
+
+            let arrayOfStatus: Array<IUserStatus> = [];
             resetUserStatus();
+            
             if (address) {
+
                 for (let item of data.slice().reverse()) {
                     let userStatus: IUserStatus = {
                         address: address?.toString(),
                         longitude: convertLngInt32ToFloat(Number(item.latitude)), // ToDo: change
                         latitude: convertLatInt32ToFloat(Number(item.longitude)), // ToDo: change
                         timestamp: item.timestamp.toString(),
-                        status: item.status,                    
+                        status: item.status,
+                        weight: 0,
                     }
-                    appendUserStatus(userStatus);
+                    arrayOfStatus.push(userStatus);
+                }
+
+                arrayOfStatus.sort(function(a: IUserStatus, b: IUserStatus){return Number(a.timestamp) - Number(b.timestamp)});
+
+                for (let i = 0; i < arrayOfStatus.length; i++) {
+                    arrayOfStatus[i].weight = 100 * Math.floor( ( i / arrayOfStatus.length) * 8 + 1 );
+                }
+
+                arrayOfStatus.sort(function(a: IUserStatus, b: IUserStatus){return Number(b.timestamp) - Number(a.timestamp)});
+
+                for (let item of arrayOfStatus) {
+                    appendUserStatus(item);
                 }
             }
         },
@@ -40,31 +57,7 @@ export function LoadPositions () {
 
 
 export const Positions = (props: { onClick: () => void } ) => {
-    const [ userStatus, appendUserStatus, resetUserStatus ] = useUserStatus();
-    const { address } = useAccount();
-    useContractRead({
-        addressOrName: contractAddress,
-        contractInterface: contractAbi,
-        functionName: "getListOfUserPositions",
-        args: [ address ],
-        cacheOnBlock: true,
-        onSuccess(data) {
-            resetUserStatus();
-            for (let item of data.slice().reverse()) {
-                let userStatus: IUserStatus = {
-                    address: address?.toString(),
-                    longitude: convertLngInt32ToFloat(Number(item.latitude)), // ToDo: change
-                    latitude: convertLatInt32ToFloat(Number(item.longitude)), // ToDo: change
-                    timestamp: item.timestamp.toString(),
-                    status: item.status,                    
-                }
-                appendUserStatus(userStatus);
-            }
-        },
-    });
-
-    console.log(userStatus);
-
+    const [ userStatus ] = useUserStatus();
     return (
         <div className="w-full px-6 py-2 flex flex-col justify-start">            
             <MapModalTitle title="What happened"/>                        

@@ -4,4 +4,5 @@ export interface IUserStatus {
     longitude: number;
     latitude: number;
     status: string;
+    weight: number;
 }

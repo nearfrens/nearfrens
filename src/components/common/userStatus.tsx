@@ -5,13 +5,22 @@ import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference"
 
 
 export const UserStatus = (props: { userStatus: IUserStatus }) => {
+
+    let color: string;
+    if (props.userStatus.weight !== undefined) {
+        color = "border-blue-" + (props.userStatus.weight!).toString() ;
+    } else {
+        color = "border-stone-200";
+    }
+
     return (
-        <div className="
+        <div className={`
             px-2 py-2
             flex flex-col justify-start gap-2 
-            border border-stone-200 
-            rounded-lg 
-            "
+            border 
+            ${ color }
+            rounded-lg
+        `}
         >
             <div className="text-xs flex flex-row items-center justify-start gap-2">
                 <div>

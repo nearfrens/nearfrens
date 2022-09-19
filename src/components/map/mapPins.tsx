@@ -21,8 +21,17 @@ interface IMapPopup {
 }
 
 export const MapMarker = (props: IMapMarker) => {
+    
+    let color: string;
+    if (props.status.weight !== undefined) {
+        color = "border-blue-" + (props.status.weight!).toString() ;
+    } else {
+        color = "border-stone-200";
+    }
+
     return (
         <Marker
+            key={props.index}
             longitude={ props.status.longitude} 
             latitude={ props.status.latitude } 
             anchor="bottom"            
@@ -37,17 +46,9 @@ export const MapMarker = (props: IMapMarker) => {
             }}
             onClick={() => props.openPopup(props.index)}
         >
-            {
-                ( props.index === 0 ) ?
-                <div className="border border-2 border-pink-500 flex justify-center items-center rounded-full">
-                    <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
-                </div>
-                :
-                <div className="border border-2 border-blue-500 flex justify-center items-center rounded-full">
-                    <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
-                </div>
-            }
-
+            <div className={`border border-2 ${color} flex justify-center items-center rounded-full`}>
+                <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
+            </div>
         </Marker>
     );
 }
