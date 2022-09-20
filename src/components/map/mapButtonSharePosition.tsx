@@ -152,7 +152,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     const [zoneId] = useState<number>(0);
     const [tokenId, setTokenId] = useState<Array<string>>([]);
     const [collectionAddress, setCollectionAddress] = useState<Array<string>>([]);
-    const [gasLimit, setGasLimit] = useState<number>(800000);
+    const [gasLimit, setGasLimit] = useState<number>(800001);
 
     useEffect(() => {
         let listTokenId = [];
