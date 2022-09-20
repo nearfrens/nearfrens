@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import truncateEthAddress from "truncate-eth-address";
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/outline";
+
 import { Button } from "../common/button";
 import { Log } from "../common/log";
 import { MapInput } from "../common/input";
-import { Table, TableLineWithTwoColumn } from "../common/table";
-import { convertLatFloatToInt32, convertLngFloatToInt32 } from "./mapFunction";
-import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
-import { MapModal, MapModalTitle, MapModalSubTitle } from "./mapModal";
-import { MapPinButton } from "../common/buttonRound";
-import { MapDisclosure } from "./mapDisclosure";
-import contractAbi from "./../../contract/abi.json";
-import { useUserListOfNft } from "../../hooks/useUserListOfNft";
 import { UserNftSmall } from "../common/userNft";
+import { MapPinButton } from "../common/buttonRound";
+
+import contractAbi from "./../../contract/abi.json";
+
+import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
+import { useUserListOfNft } from "../../hooks/useUserListOfNft";
 import { useNetworkContract } from "../../hooks/useNetworkContract";
-import { IUserNft } from "../../interface/user";
-import { setIn } from "immutable";
-import { ArrowLeftCircleIcon, ArrowLeftIcon, ArrowRightCircleIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+
+import { convertLatFloatToInt32, convertLngFloatToInt32 } from "./mapFunction";
+import { MapModal, MapModalTitle, MapModalSubTitle } from "./mapModal";
 
 
 interface ITransactionData {
@@ -28,87 +27,86 @@ interface ITransactionData {
     tokenId: Array<string>;
 }
 
-const TransactionParameters = (props: {data: ITransactionData}) => {
+// const TransactionParameters = (props: {data: ITransactionData}) => {
     
-    let displayCollections: Array<string> = [];
-    for (let collection of props.data.collections) {
-        displayCollections.push(truncateEthAddress(collection));
-    }
+//     let displayCollections: Array<string> = [];
+//     for (let collection of props.data.collections) {
+//         displayCollections.push(truncateEthAddress(collection));
+//     }
 
-    let displayTokenId: Array<string>  = [];
-    for (let tokenId of props.data.tokenId) {
-        displayTokenId.push(tokenId);
-    }
+//     let displayTokenId: Array<string>  = [];
+//     for (let tokenId of props.data.tokenId) {
+//         displayTokenId.push(tokenId);
+//     }
 
-    console.log("Coucou");
-    console.log(props.data);
+//     console.log("Coucou");
+//     console.log(props.data);
 
-    return (
-        <Table
-            lines={[
-                    <TableLineWithTwoColumn
-                        label="Latitude"
-                        value={ props.data.latitude?.toString() }
-                        textSize="text-xs"
-                    />,
-                    <TableLineWithTwoColumn
-                        label="Longitude"
-                        value={ props.data.longitude?.toString() }
-                        textSize="text-xs"
-                    />,
-                    <TableLineWithTwoColumn
-                        label="ZoneId"
-                        value={ props.data.zoneId?.toString() }
-                        textSize="text-xs"
-                    />,
-                    <TableLineWithTwoColumn 
-                        label="Status"
-                        value={ props.data.status }
-                        textSize="text-xs"
-                    />,
-                    <TableLineWithTwoColumn 
-                        label="Collections"
-                        value={ displayCollections.toString() }
-                        textSize="text-xs"
-                    />,
-                    <TableLineWithTwoColumn 
-                        label="tokenIds"
-                        value={ displayTokenId.toString() }
-                        textSize="text-xs"
-                    />
-            ]}
-        />
-    );
-}
+//     return (
+//         <Table
+//             lines={[
+//                     <TableLineWithTwoColumn
+//                         label="Latitude"
+//                         value={ props.data.latitude?.toString() }
+//                         textSize="text-xs"
+//                     />,
+//                     <TableLineWithTwoColumn
+//                         label="Longitude"
+//                         value={ props.data.longitude?.toString() }
+//                         textSize="text-xs"
+//                     />,
+//                     <TableLineWithTwoColumn
+//                         label="ZoneId"
+//                         value={ props.data.zoneId?.toString() }
+//                         textSize="text-xs"
+//                     />,
+//                     <TableLineWithTwoColumn 
+//                         label="Status"
+//                         value={ props.data.status }
+//                         textSize="text-xs"
+//                     />,
+//                     <TableLineWithTwoColumn 
+//                         label="Collections"
+//                         value={ displayCollections.toString() }
+//                         textSize="text-xs"
+//                     />,
+//                     <TableLineWithTwoColumn 
+//                         label="tokenIds"
+//                         value={ displayTokenId.toString() }
+//                         textSize="text-xs"
+//                     />
+//             ]}
+//         />
+//     );
+// }
 
-interface IPositionParameters {
-    longitude: number;
-    latitude: number;
-    timestamp: number;
-}
+// interface IPositionParameters {
+//     longitude: number;
+//     latitude: number;
+//     timestamp: number;
+// }
 
-const PositionParameters = (props: {pos: IPositionParameters}) => {
-    return (
-        <Table
-            lines={[
-                <TableLineWithTwoColumn
-                    label="Latitude"
-                    value={ props.pos.latitude?.toString() }
-                    textSize="text-xs"
-                />,
-                <TableLineWithTwoColumn 
-                    label="Longitude"
-                    value={ props.pos.longitude?.toString() }
-                    textSize="text-xs"
-                />,
-            ]}
-        />
-    );
-}
+// const PositionParameters = (props: {pos: IPositionParameters}) => {
+//     return (
+//         <Table
+//             lines={[
+//                 <TableLineWithTwoColumn
+//                     label="Latitude"
+//                     value={ props.pos.latitude?.toString() }
+//                     textSize="text-xs"
+//                 />,
+//                 <TableLineWithTwoColumn 
+//                     label="Longitude"
+//                     value={ props.pos.longitude?.toString() }
+//                     textSize="text-xs"
+//                 />,
+//             ]}
+//         />
+//     );
+// }
 
 const DisplayCollection = () => {
-    const { address } = useAccount();
-    const [ userListOfNFt,, switchUserListOfNft ] = useUserListOfNft(address);
+    const [ userListOfNFt,,switchUserListOfNft ] = useUserListOfNft();
     const maxLen: number = userListOfNFt.length;
     const [ index, setIndex ] = useState<number>(0);
     const [ numActivated, setActivated ] = useState<number>(0);
@@ -147,17 +145,14 @@ const DisplayCollection = () => {
 
 export const SharePosition = (props: { onClick: () => void } ) => {
     
-    const { address } = useAccount();
-    const [ userListOfNFt ] = useUserListOfNft(address);
+    const [ userListOfNFt ] = useUserListOfNft();
     const [ contractAddress ] = useNetworkContract();
-
-    const timestamp: number = Date.now();
     const [mapCoordPosition] = useMapCoordPosition();
     const [status, setStatus] = useState<string>("");
-    const [zoneId, setZoneId] = useState<number>(0);
+    const [zoneId] = useState<number>(0);
     const [tokenId, setTokenId] = useState<Array<string>>([]);
     const [collectionAddress, setCollectionAddress] = useState<Array<string>>([]);
-    const [gasLimit, setGasLimit] = useState<number>(400000);
+    const [gasLimit, setGasLimit] = useState<number>(800000);
 
     useEffect(() => {
         let listTokenId = [];

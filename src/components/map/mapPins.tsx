@@ -105,8 +105,6 @@ export const UserPin = () => {
 export const MapPins = () => {
     const [indexPopup, setIndexPopup] = useState<number|null>(null);
     const [userStatus] = useUserStatus();
-    console.log(userStatus);
-    console.log("COUCOU");
     return (
         <div>
             <div>

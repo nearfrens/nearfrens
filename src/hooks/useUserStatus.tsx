@@ -26,7 +26,6 @@ function FetchPositions(append: Dispatch<IUserStatus>, reset: () => void, data?:
             status: item.status,
             weight: 0,
         }
-        console.log(item);
         arrayOfStatus.push(userStatus);
     }
 

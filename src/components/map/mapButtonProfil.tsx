@@ -3,13 +3,11 @@ import { MapModal, MapModalTitle } from "./mapModal";
 import { UserProfilButton } from "../common/buttonRound";
 import { Button } from "../common/button";
 import { useUserListOfNft } from "../../hooks/useUserListOfNft";
-import { useAccount } from "wagmi";
 import { UserNft } from "../common/userNft";
 
 
 export const Profil = (props: { onClick: () => void } ) => {
-    const { address } = useAccount();
-    const [ userListOfNFt, fetchUserListOfNft, switchUserListOfNft ] = useUserListOfNft(address);
+    const [ userListOfNFt, fetchUserListOfNft, switchUserListOfNft ] = useUserListOfNft();
     return (
         <div className="w-full px-6 py-2 flex flex-col justify-start">            
             <MapModalTitle title="User profil"/>

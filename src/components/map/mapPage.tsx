@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PublicIconForNearFrensWithText } from '../icons/publicIcon';
 import { useMapCoordWindow } from "../../hooks/useMapCoordWindow";
@@ -13,7 +14,6 @@ import mapboxgl, { MapLayerMouseEvent } from "mapbox-gl"; // eslint-disable-line
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { ViewStateChangeEvent } from 'react-map-gl';
 import { useAccount, useNetwork } from "wagmi";
-import { useEffect } from "react";
 import { useUserStatus } from "../../hooks/useUserStatus";
 import { useParamsStyle } from "../../hooks/useParamsStyle";
 import { useUserListOfNft } from "../../hooks/useUserListOfNft";
@@ -24,18 +24,16 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
 export const MapPage = () =>  {
 
     const navigate = useNavigate();
-    const { isConnected } = useAccount();
+    const { isConnected, isDisconnected, isReconnecting } = useAccount();
     const { chain } = useNetwork();
       
+    const [ mapStyle ] = useMapStyle();
     const [ paramsStyle ] = useParamsStyle();
+    const [ mapZoom, setMapZoom ] = useMapZoom();
     const [ mapCoordWindow, setMapCoordWindow ] = useMapCoordWindow();
     const [ , setMapCoordPosition ] = useMapCoordPosition();
-    const [ mapStyle ] = useMapStyle();
-    const [ mapZoom, setMapZoom ] = useMapZoom();
-    const [ userStatus,,resetUserStatus, fetchUserStatus ] = useUserStatus();
-
-    const { address } = useAccount();
-    const [ userListOfNFt, fetchUserListOfNft] = useUserListOfNft(address!);
+    const [,,resetUserStatus, fetchUserStatus ] = useUserStatus();
+    const [,fetchUserListOfNft,,resetListOfNft] = useUserListOfNft();
 
     function onMapMove (event: ViewStateChangeEvent) {
         const coord = event.target.getCenter();
@@ -50,24 +48,15 @@ export const MapPage = () =>  {
     }
 
     useEffect(() => {
-        if (!isConnected) {
-            resetUserStatus();
-        }
-    })
+        if (isConnected) fetchUserStatus();
+        if (isDisconnected) resetUserStatus();
+        if (isReconnecting) fetchUserStatus();
+    }, [isConnected, isDisconnected, isReconnecting]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if (isConnected) {
-            fetchUserListOfNft();
-        }
-    }, [ chain ])
-
-    useEffect(() => {
-        if (isConnected) {
-            fetchUserStatus();
-        } else {
-            resetUserStatus();
-        }
-    }, [ isConnected, userListOfNFt ]);
+        resetListOfNft();
+        fetchUserListOfNft();
+    }, [chain]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="">
