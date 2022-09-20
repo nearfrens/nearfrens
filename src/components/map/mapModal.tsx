@@ -14,7 +14,7 @@ export const MapModalTitle = (props: {title: string}) => {
 }
 
 export const MapModalSubTitle = (props: {subTitle: string}) => {
-    return (<h4> { props.subTitle } </h4>);
+    return (<h4 className="pb-1"> { props.subTitle } </h4>);
 }
 
 export const MapModal = (props: PropsMapModal) => {
@@ -48,7 +48,7 @@ export const MapModal = (props: PropsMapModal) => {
                         >
                             <Dialog.Panel
                                 className="
-                                    w-96                             
+                                    w-96
                                     transform
                                     overflow-hidden
                                     rounded-xl

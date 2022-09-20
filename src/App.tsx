@@ -8,21 +8,8 @@ import { publicProvider } from "wagmi/providers/public";
 import { getDefaultWallets, RainbowKitProvider, midnightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
+import { providerKey } from "./interface/network";
 
-interface ProviderKey {
-  ethereumMainet?: string;
-  ethereumGoerli?: string;
-  polygonMainet?: string;
-  polygonMumbai?: string;
-  optimismMainet?: string;
-  optimismGoerli?: string;
-}
-
-const providerKey: ProviderKey = {
-  ethereumGoerli: process.env.REACT_APP_ALCHEMY_ETHEREUM_GOERLI,
-  polygonMumbai: process.env.REACT_APP_ALCHEMY_POLYGON_MUMBAI,
-  optimismGoerli: process.env.REACT_APP_ALCHEMY_OPTIMISM_GOERLI,
-};
 
 const { chains, provider } = configureChains(
   [

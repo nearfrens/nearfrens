@@ -1,5 +1,4 @@
 import { useState, Dispatch } from 'react';
-// import { PublicIconForNearFrens } from '../icons/publicIcon';
 import { useUserStatus } from '../../hooks/useUserStatus';
 import { UserStatus } from '../common/userStatus';
 import { IUserStatus } from '../../interface/user';
@@ -22,6 +21,8 @@ interface IMapPopup {
 
 export const MapMarker = (props: IMapMarker) => {
     
+    // if ( props.status.longitude  || props.status.latitude ) return null ;
+
     let color: string;
     if (props.status.weight !== undefined) {
         color = "border-blue-" + (props.status.weight!).toString() ;
@@ -32,11 +33,11 @@ export const MapMarker = (props: IMapMarker) => {
     return (
         <Marker
             key={props.index}
-            longitude={ props.status.longitude} 
+            longitude={ props.status.longitude } 
             latitude={ props.status.latitude } 
             anchor="bottom"            
             style={{
-                "backgroundColor": "transparent", 
+                "backgroundColor": "transparent",
                 "borderWidth": "0px", 
                 "borderStyle": "solid",
                 "borderColor": "transparent",
@@ -104,6 +105,8 @@ export const UserPin = () => {
 export const MapPins = () => {
     const [indexPopup, setIndexPopup] = useState<number|null>(null);
     const [userStatus] = useUserStatus();
+    console.log(userStatus);
+    console.log("COUCOU");
     return (
         <div>
             <div>

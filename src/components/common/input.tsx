@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { ReactEventHandler } from "react";
 
 export interface PropsInput {
     label: string;
@@ -9,13 +9,13 @@ export interface PropsInput {
 }
 
 export interface IMapInput {
-    value: any,
-    onChange: Dispatch<any>,
     placeholder?: string,
     title?: string,
     titleSize?: string,
     textSize?: string,
     textPosition?: string,
+    value: any,
+    onChange?: ReactEventHandler,
 }
 
 export const Input = (props: PropsInput) => {
@@ -46,7 +46,7 @@ export const MapInput = (props: IMapInput) => {
     return (
         <div className="w-full flex flex-col justify-start items-start">
             <div className={`
-                ${ props.titleSize? props.textSize  : "text-md"}
+                ${ props.titleSize ? props.textSize  : "text-md"}
                 `}
             >
                 { props.title }
@@ -64,7 +64,7 @@ export const MapInput = (props: IMapInput) => {
                     ${ props.textPosition? props.textPosition : "" }
                     `}
                     value={ props.value }
-                    onChange={ (e) => props.onChange(e.target.value)}
+                    onChange={ props.onChange }
                     placeholder={ props.placeholder } 
                 />
             </div>

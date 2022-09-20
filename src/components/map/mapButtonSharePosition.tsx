@@ -1,17 +1,22 @@
-import { useState } from "react";
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-// import truncateEthAddress from "truncate-eth-address";
+import React, { useEffect, useState } from "react";
+import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import truncateEthAddress from "truncate-eth-address";
 import { Button } from "../common/button";
 import { Log } from "../common/log";
 import { MapInput } from "../common/input";
 import { Table, TableLineWithTwoColumn } from "../common/table";
 import { convertLatFloatToInt32, convertLngFloatToInt32 } from "./mapFunction";
 import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
-import { MapModal, MapModalTitle } from "./mapModal";
+import { MapModal, MapModalTitle, MapModalSubTitle } from "./mapModal";
 import { MapPinButton } from "../common/buttonRound";
 import { MapDisclosure } from "./mapDisclosure";
 import contractAbi from "./../../contract/abi.json";
-const contractAddress:string = process.env.REACT_APP_CONTRACT_ON_GOERLI!;
+import { useUserListOfNft } from "../../hooks/useUserListOfNft";
+import { UserNftSmall } from "../common/userNft";
+import { useNetworkContract } from "../../hooks/useNetworkContract";
+import { IUserNft } from "../../interface/user";
+import { setIn } from "immutable";
+import { ArrowLeftCircleIcon, ArrowLeftIcon, ArrowRightCircleIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 
 interface ITransactionData {
@@ -20,10 +25,24 @@ interface ITransactionData {
     status: string;
     zoneId: number;
     collections: Array<string>;
-    tokenId: Array<number>;
+    tokenId: Array<string>;
 }
 
 const TransactionParameters = (props: {data: ITransactionData}) => {
+    
+    let displayCollections: Array<string> = [];
+    for (let collection of props.data.collections) {
+        displayCollections.push(truncateEthAddress(collection));
+    }
+
+    let displayTokenId: Array<string>  = [];
+    for (let tokenId of props.data.tokenId) {
+        displayTokenId.push(tokenId);
+    }
+
+    console.log("Coucou");
+    console.log(props.data);
+
     return (
         <Table
             lines={[
@@ -32,12 +51,12 @@ const TransactionParameters = (props: {data: ITransactionData}) => {
                         value={ props.data.latitude?.toString() }
                         textSize="text-xs"
                     />,
-                    <TableLineWithTwoColumn 
+                    <TableLineWithTwoColumn
                         label="Longitude"
                         value={ props.data.longitude?.toString() }
                         textSize="text-xs"
                     />,
-                    <TableLineWithTwoColumn 
+                    <TableLineWithTwoColumn
                         label="ZoneId"
                         value={ props.data.zoneId?.toString() }
                         textSize="text-xs"
@@ -49,13 +68,12 @@ const TransactionParameters = (props: {data: ITransactionData}) => {
                     />,
                     <TableLineWithTwoColumn 
                         label="Collections"
-                        // value={ (props.data.collections) ? truncateEthAddress(props.data.collections[0]) : "" }
-                        value=""
+                        value={ displayCollections.toString() }
                         textSize="text-xs"
                     />,
                     <TableLineWithTwoColumn 
                         label="tokenIds"
-                        value={ props.data.tokenId?.toString() }
+                        value={ displayTokenId.toString() }
                         textSize="text-xs"
                     />
             ]}
@@ -70,61 +88,106 @@ interface IPositionParameters {
 }
 
 const PositionParameters = (props: {pos: IPositionParameters}) => {
-    // const dateTimestamp = new Date(props.pos.timestamp).toISOString();
     return (
         <Table
             lines={[
-                    <TableLineWithTwoColumn
-                        label="Latitude"
-                        value={ props.pos.latitude?.toString() }
-                        textSize="text-xs"
-                    />,
-                    <TableLineWithTwoColumn 
-                        label="Longitude"
-                        value={ props.pos.longitude?.toString() }
-                        textSize="text-xs"
-                    />,
-                    // <TableLineWithTwoColumn 
-                    //     label="Timestamp"
-                    //     value={ dateTimestamp }
-                    // />,
+                <TableLineWithTwoColumn
+                    label="Latitude"
+                    value={ props.pos.latitude?.toString() }
+                    textSize="text-xs"
+                />,
+                <TableLineWithTwoColumn 
+                    label="Longitude"
+                    value={ props.pos.longitude?.toString() }
+                    textSize="text-xs"
+                />,
             ]}
         />
     );
 }
 
+const DisplayCollection = () => {
+    const { address } = useAccount();
+    const [ userListOfNFt,, switchUserListOfNft ] = useUserListOfNft(address);
+    const maxLen: number = userListOfNFt.length;
+    const [ index, setIndex ] = useState<number>(0);
+    const [ numActivated, setActivated ] = useState<number>(0);
+    const decrementIndex = () => { if(index !== 0       ) setIndex(index - 1) };
+    const incrementIndex = () => { if(index !== maxLen-1) setIndex(index + 1) };
+
+    useEffect(() => {
+        let counter = 0;
+        for (let userNft of userListOfNFt) {
+            if (userNft.active) {
+                counter += 1;
+            }
+        }
+        setActivated(counter);
+    }, [ userListOfNFt ])
+
+    return (
+        <div className="w-full flex flex-col gap-2">
+            <div className="w-full" onClick={ () => switchUserListOfNft(index)} >
+                <UserNftSmall nft={ userListOfNFt[index] } />
+            </div>
+            <div className="w-full flex flex-row gap-2 items-center justify-center">
+                <button onClick={ decrementIndex } disabled={index === 0}>
+                    { (index !== 0) ? <ArrowLeftCircleIcon className="h-6 w-6"/> : <ArrowLeftCircleIcon className="h-6 w-6 text-stone-600"/> }
+                </button>
+                <div className="text-sm">
+                    Active collections: { numActivated }
+                </div>
+                <button onClick={ incrementIndex } disabled={index === maxLen}>
+                    { (index !== maxLen) ? <ArrowRightCircleIcon className="h-6 w-6"/> : <ArrowRightCircleIcon className="h-6 w-6 text-stone-600"/> }
+                </button>
+            </div>
+        </div>
+    );
+}
+
 export const SharePosition = (props: { onClick: () => void } ) => {
     
+    const { address } = useAccount();
+    const [ userListOfNFt ] = useUserListOfNft(address);
+    const [ contractAddress ] = useNetworkContract();
+
     const timestamp: number = Date.now();
     const [mapCoordPosition] = useMapCoordPosition();
-    const [gasLimit, setGasLimit] = useState<number>(400000);
     const [status, setStatus] = useState<string>("");
-    const [zoneId, setZoneId] = useState<number|null>(null);
-    const [tokenId, setTokenId] = useState<number|null>(null);
-    const [collectionAddress, setCollectionAddress] = useState<string|null>(null);
+    const [zoneId, setZoneId] = useState<number>(0);
+    const [tokenId, setTokenId] = useState<Array<string>>([]);
+    const [collectionAddress, setCollectionAddress] = useState<Array<string>>([]);
+    const [gasLimit, setGasLimit] = useState<number>(400000);
 
-    const pos: IPositionParameters = {
-        longitude: mapCoordPosition?.longitude!,
-        latitude: mapCoordPosition?.latitude!,
-        timestamp: timestamp,
-    }
+    useEffect(() => {
+        let listTokenId = [];
+        let listCollectionAddress = [];
+        for (let userNft of userListOfNFt) {
+            if (userNft.active) {
+                listTokenId.push(userNft.tokenId);
+                listCollectionAddress.push(userNft.contractAddress);
+            }
+        }
+        setTokenId(listTokenId);
+        setCollectionAddress(listCollectionAddress);
+    }, [ userListOfNFt ]);
 
     const txData: ITransactionData = {
         longitude: convertLngFloatToInt32(mapCoordPosition?.longitude!),
         latitude: convertLatFloatToInt32(mapCoordPosition?.latitude!),
         status: status,
         zoneId: zoneId!,
-        collections: [ collectionAddress! ],
-        tokenId: [ tokenId! ],
-    }
+        collections: collectionAddress,
+        tokenId: tokenId,
+    };
 
     const { config, error } = usePrepareContractWrite({
-        addressOrName: contractAddress,
+        addressOrName: contractAddress!,
         contractInterface: contractAbi,
         functionName: "checkIn",
         args: [
-            txData.longitude,
             txData.latitude,
+            txData.longitude,
             txData.zoneId,
             txData.collections,
             txData.tokenId,
@@ -133,9 +196,9 @@ export const SharePosition = (props: { onClick: () => void } ) => {
         overrides: {
             gasLimit: gasLimit,
         },
-    })
+    });
     
-    const writeContract = useContractWrite(config)
+    const writeContract = useContractWrite(config);
 
     const tx = useWaitForTransaction({
         hash: writeContract.data?.hash,
@@ -145,88 +208,56 @@ export const SharePosition = (props: { onClick: () => void } ) => {
 
     let txStatus = null;
     if ( error ) {
-        txStatus = <Log level="error" msg="All parameters must be filled" />
+        txStatus = <Log level="error" msg="All parameters must be filled" />;
     } else if ( writeContract.isSuccess ) {
         if (tx.isLoading) {
-            txStatus = <Log level="info" msg="Waiting for transaction status" />        
+            txStatus = <Log level="info" msg="Waiting for transaction status" />;      
         }
         if (tx.isSuccess) {
-            txStatus = <Log level="success" msg="Transaction successfuly sent" />
+            txStatus = <Log level="info" msg="Transaction sent" />;
         }
     } else if ( writeContract.isLoading ) {
         txStatus = <Log level="info" msg="Let's go" />
     } else {
         if ( gasLimit < 21000 ) {
-            txStatus = <Log level="warning" msg="Insufficent gas" />
+            txStatus = <Log level="warning" msg="Insufficent gas" />;
         } else {
-            txStatus = <Log msg="Share your position wit near frens" />
+            txStatus = <Log msg="Share your position wit near frens" />;
         }
     }
 
     return (
         <div className="w-full px-6 py-2 flex flex-col justify-start">
 
-            <MapModalTitle title="Share position" />
+            <MapModalTitle title="Share your collections" />
+            
+            <div className="flex mb-4 flex-col justify-start gap-1 overflow-y-auto">
 
-            <div className="flex flex-col justify-start items-strech gap-4 overflow-y-auto h-64 mb-4">
-                <div className="w-full flex flex-row items-center gap-2">
-                    <div className="w-full">
-                        <MapInput
-                            value={ status }
-                            onChange={ setStatus }
-                            placeholder="What's happening ?"
-                            title="Position status"
-                            titleSize="text-sm"
-                            textPosition="text-left"
-                            textSize="text-xs"
-                        />
-                    </div>
-                    <div className="w-20">
-                        <MapInput
-                            value={ zoneId }
-                            onChange={ setZoneId }
-                            placeholder=""
-                            title="Zone id"
-                            titleSize="text-sm"
-                            textPosition="text-right"
-                            textSize="text-xs"
-                        />                 
-                    </div>   
+                <MapModalSubTitle subTitle="Select your collections" />
+                <DisplayCollection />
+
+                <MapModalSubTitle subTitle="Enter your status" />
+                <div className="w-full flex flex-row items-center gap-2">    
+                    <MapInput
+                        value={ status }
+                        onChange={ (event: React.ChangeEvent<HTMLInputElement>) => setStatus(event.target.value) }
+                        placeholder="What's happening ?"
+                        // title={ null }
+                        // titleSize="text-sm"
+                        textPosition="text-left"
+                        textSize="text-xs"
+                    />
                 </div>
-                <div className="w-full flex flex-row items-center gap-2">
-                    <div className="w-full">
-                        <MapInput
-                            value={ collectionAddress }
-                            onChange={ setCollectionAddress }
-                            placeholder=""
-                            title="Collection address"
-                            titleSize="text-sm"
-                            textPosition="text-left"
-                            textSize="text-xs"
-                        />
-                    </div>
-                    <div className="w-20">
-                        <MapInput
-                            value={ tokenId }
-                            onChange={ setTokenId }
-                            placeholder=""
-                            title="Token id"
-                            titleSize="text-sm"
-                            textPosition="text-right"
-                            textSize="text-xs"
-                        />   
-                    </div>
-                </div>                                  
-                <MapDisclosure title="Position parameters" content={ <PositionParameters pos={ pos } />} />
-                <MapDisclosure title="Transaction data" content={ <TransactionParameters data={ txData } />} />            
+
                 <MapInput
                     value={ gasLimit }
-                    onChange={ setGasLimit }
-                    placeholder="What's happening ?"
-                    title="Gas Fees"
+                    onChange={ (event: React.ChangeEvent<HTMLInputElement>) => setGasLimit(Number(event.target.value)) }
+                    placeholder=""
+                    title="Gas Limit"
                     textSize="text-xs"
                     textPosition="text-right"
-                />            
+                />  
+
             </div>
 
             <div className="text-xs">
@@ -239,14 +270,14 @@ export const SharePosition = (props: { onClick: () => void } ) => {
                     onClick = { () => writeContract.write?.()}
                     disabled = { !writeContract.write }
                 />
-                <Button 
+                <Button
                     text={ "Close" } 
                     onClick = { props.onClick }
                 />
             </div>
-
+            
         </div>
-    )
+    );
 }
 
 export const MapButtonSharePosition = () => {
@@ -263,5 +294,5 @@ export const MapButtonSharePosition = () => {
                 closeModal={ () => setIsOpen(false) } 
             />
         </div>
-    )
+    );
 }

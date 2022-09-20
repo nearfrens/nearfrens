@@ -10,8 +10,10 @@ import mapCoordPositionReducer from "../features/mapCoordPositionSlice";
 import mapStyleReducer from "../features/mapStyleSlice";
 import mapYourPositionsReducer from "../features/mapYourPositionsSlice";
 import mapZoomReducer from "../features/mapZoomSlice";
-import userStatusReducer from "../features/userStatusSlice";
 import paramsStyleReducer from "../features/paramsStyleSlice";
+import userStatusReducer from "../features/userStatusSlice";
+import userListOfNftReducer from "../features/userListOfNftSlice";
+
 
 const reducers = combineReducers({
     mapCoordWindow: mapCoordWindowReducer,
@@ -21,6 +23,7 @@ const reducers = combineReducers({
     mapZoom: mapZoomReducer,
     paramsStyle: paramsStyleReducer,
     userStatus: userStatusReducer,
+    userListOfNft: userListOfNftReducer,
 });
 
 const persistConfig = {

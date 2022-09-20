@@ -1,55 +1,12 @@
 [
     {
-        "inputs": [
+        "inputs": [],
+        "name": "EPNS_COMM_ADDRESS",
+        "outputs": [
             {
                 "internalType": "address",
                 "name": "",
                 "type": "address"
-            }
-        ],
-        "name": "addressToLastCheckInData",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "int32",
-                        "name": "latitude",
-                        "type": "int32"
-                    },
-                    {
-                        "internalType": "int32",
-                        "name": "longitude",
-                        "type": "int32"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "timestamp",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "user",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "status",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct NearFrens.Position",
-                "name": "_position",
-                "type": "tuple"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_zone",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "status",
-                "type": "string"
             }
         ],
         "stateMutability": "view",
@@ -79,6 +36,11 @@
                 "internalType": "int32",
                 "name": "longitude",
                 "type": "int32"
+            },
+            {
+                "internalType": "uint128",
+                "name": "zone",
+                "type": "uint128"
             },
             {
                 "internalType": "uint256",
@@ -112,9 +74,9 @@
                 "type": "int32"
             },
             {
-                "internalType": "uint256",
+                "internalType": "uint128",
                 "name": "_zoneID",
-                "type": "uint256"
+                "type": "uint128"
             },
             {
                 "internalType": "address[]",
@@ -168,6 +130,11 @@
                 "type": "int32"
             },
             {
+                "internalType": "uint128",
+                "name": "zone",
+                "type": "uint128"
+            },
+            {
                 "internalType": "uint256",
                 "name": "timestamp",
                 "type": "uint256"
@@ -209,6 +176,11 @@
                         "type": "int32"
                     },
                     {
+                        "internalType": "uint128",
+                        "name": "zone",
+                        "type": "uint128"
+                    },
+                    {
                         "internalType": "uint256",
                         "name": "timestamp",
                         "type": "uint256"
@@ -222,6 +194,11 @@
                         "internalType": "string",
                         "name": "status",
                         "type": "string"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "collections",
+                        "type": "address[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",
@@ -260,6 +237,11 @@
                         "type": "int32"
                     },
                     {
+                        "internalType": "uint128",
+                        "name": "zone",
+                        "type": "uint128"
+                    },
+                    {
                         "internalType": "uint256",
                         "name": "timestamp",
                         "type": "uint256"
@@ -273,6 +255,11 @@
                         "internalType": "string",
                         "name": "status",
                         "type": "string"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "collections",
+                        "type": "address[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",
@@ -292,6 +279,11 @@
                         "type": "int32"
                     },
                     {
+                        "internalType": "uint128",
+                        "name": "zone",
+                        "type": "uint128"
+                    },
+                    {
                         "internalType": "uint256",
                         "name": "timestamp",
                         "type": "uint256"
@@ -305,6 +297,11 @@
                         "internalType": "string",
                         "name": "status",
                         "type": "string"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "collections",
+                        "type": "address[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",
@@ -324,6 +321,11 @@
                         "type": "int32"
                     },
                     {
+                        "internalType": "uint128",
+                        "name": "zone",
+                        "type": "uint128"
+                    },
+                    {
                         "internalType": "uint256",
                         "name": "timestamp",
                         "type": "uint256"
@@ -337,6 +339,11 @@
                         "internalType": "string",
                         "name": "status",
                         "type": "string"
+                    },
+                    {
+                        "internalType": "address[]",
+                        "name": "collections",
+                        "type": "address[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",

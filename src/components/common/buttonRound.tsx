@@ -1,5 +1,5 @@
 import { ReactElement, ReactEventHandler } from "react";
-import { BookmarkIcon, Cog8ToothIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { BookmarkIcon, Cog8ToothIcon, MapPinIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useParamsStyle } from "../../hooks/useParamsStyle";
 
 
@@ -36,6 +36,15 @@ export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {
     );
 }
 
+export const MapPinButton = (props: { onClick: ReactEventHandler }) => {
+    return (
+        <RoundButton 
+        icon={ <MapPinIcon className="h-8 w-8"/>} 
+        onClick={ props.onClick } 
+        />
+        );
+    }
+    
 export const ParametersButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton 
@@ -45,10 +54,10 @@ export const ParametersButton = (props: { onClick: ReactEventHandler }) => {
     );
 }
 
-export const MapPinButton = (props: { onClick: ReactEventHandler }) => {
+export const UserProfilButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton 
-            icon={ <MapPinIcon className="h-8 w-8"/>} 
+            icon={ <UserCircleIcon className="h-8 w-8"/>} 
             onClick={ props.onClick } 
         />
     );

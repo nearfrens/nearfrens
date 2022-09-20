@@ -44,15 +44,18 @@ export const Parameters = (props: { onClick: () => void } ) => {
             <Table
                 lines = {
                     [
-                        <TableLineWithTwoColumn                            
+                        <TableLineWithTwoColumn
+                            key={0}                    
                             label="Zoom"
                             value={ mapZoom.toFixed(6).toString() }
                         />,
                         <TableLineWithTwoColumn
+                            key={1}
                             label="Window longitude"
                             value={ mapCoordWindow.longitude.toFixed(6).toString() }
                         />,
                         <TableLineWithTwoColumn
+                            key={2}
                             label="Window latitude"
                             value={ mapCoordWindow.latitude.toFixed(6).toString() }
                         />
