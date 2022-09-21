@@ -106,31 +106,33 @@ export const MapWalletConnect = () => {
                           )}
                         </div>
                       )}
-                      {chain.name}
+                      <div className="hidden md:flex">
+                        { chain.name }
+                      </div>
                     </button>
   
-                    <button 
-                      className={`                      
+                    <button
+                      className={`
                         px-3
                         h-9
                         flex flex-row items-center justify-start
                         bg-stone-800
                         ${
                           (paramsStyle.isFun) ?
-                              "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
-                              :
-                              "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
+                            "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
+                            :
+                            "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
                         }
                         font-poppins
                         text-sm
                         text-stone-200 hover:text-white
                         rounded-lg
                       `}
-                      onClick={openAccountModal} 
-                      type="button" 
+                      onClick={ openAccountModal }
+                      type="button"
                     >
                       <div className="flex flex-row items-center justify-start gap-2">
-                        <div>
+                        <div className="hidden sm:flex">
                           { account.displayBalance ? `${account.displayBalance}` : ''}
                         </div>
                         <div className="bg-stone-700 rounded-lg px-2">

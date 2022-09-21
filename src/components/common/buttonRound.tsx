@@ -10,13 +10,15 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
             type="button"
             className={`
             py-2 px-2
+            border
+            border-stone-800
             text-sm 
             text-stone-100 hover:text-white
             ${ 
                 (paramsStyle.isFun) ?
                     "bg-gradient-to-r from-pink-600/50 to-blue-600/50 hover:from-pink-600/60 hover:to-blue-600/60"
                     :
-                    "bg-stone-800 bg-opacity-50 hover:bg-opacity-60"
+                    "bg-stone-800 bg-opacity-50 hover:bg-opacity-70"
             }
             rounded-full
             `}
@@ -30,7 +32,7 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
 export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton
-            icon={ <BookmarkIcon className="h-7 w-7"/>}
+            icon={ <BookmarkIcon className="h-8 w-8"/>}
             onClick={ props.onClick }
         />
     );
@@ -39,7 +41,7 @@ export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {
 export const MapPinButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton 
-            icon={ <MapPinIcon className="h-8 w-8"/>} 
+            icon={ <MapPinIcon className="h-10 w-10"/>} 
             onClick={ props.onClick } 
         />
     );

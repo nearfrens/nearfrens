@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import mapboxgl, { MapLayerMouseEvent } from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import Map, { ViewStateChangeEvent } from "react-map-gl";
+import Map, { MarkerDragEvent, ViewStateChangeEvent } from "react-map-gl";
 import { useAccount, useNetwork } from "wagmi";
 
 import { PublicIconForNearFrensWithText } from "../icons/publicIcon";
@@ -51,6 +51,12 @@ export const MapPage = () =>  {
         setMapCoordPosition({longitude: lng, latitude: lat});
     }
 
+    function onMarkerDrag (event: MarkerDragEvent) {
+        if (!event.lngLat) return ;
+        const { lng, lat } = event.lngLat;
+        setMapCoordPosition({longitude: lng, latitude: lat});
+    }
+
     useEffect(() => {
         if (isConnected) {
             fetchUserCollectionStatus();
@@ -87,7 +93,7 @@ export const MapPage = () =>  {
                     
                     <div>
                         <MapPins/>
-                        <UserPin/>
+                        <UserPin onDrag={ onMarkerDrag }/>
                     </div>
 
                     <div className="absolute inset-x-0 top-0 flex flex-row px-10 pt-7 justify-between">
@@ -113,7 +119,7 @@ export const MapPage = () =>  {
                         </div>
                     </div>
 
-                    <div className="absolute flex justify-center bottom-12 inset-x-0 px-10">
+                    <div className="absolute flex justify-center bottom-20 inset-x-0 px-12">
                         <div className="flex flex-row justify-center items-center gap-4">
                             <MapButtonPositions />
                             <MapButtonSharePosition />

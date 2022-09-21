@@ -12,6 +12,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
                 flex flex-col justify-start gap-2 
                 border
                 rounded-lg
+                ${ props.nft.active ? "bg-stone-700" : null }
             `}
             onClick={ props.onClick }
         >
@@ -48,7 +49,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
                     </div>
                 </div>
                 <div className="px-4">
-                    { ( props.nft.active ) ? <CheckBadgeIcon className="h-6 w-6"/> : <div className="h-6 w-6"/> } 
+                    { ( props.nft.active ) ? <CheckBadgeIcon className="h-6 w-6 text-blue-400"/> : <div className="h-6 w-6"/> } 
                 </div>
             </div>
 
@@ -64,6 +65,7 @@ export const UserNftSmall = (props: { nft: IUserNft }) => {
             flex flex-col justify-start gap-2 
             border
             rounded-lg
+            ${ props.nft.active ? "bg-stone-700" : null }
         `}
         >
 
@@ -95,7 +97,7 @@ export const UserNftSmall = (props: { nft: IUserNft }) => {
                     </div>
                 </div>
                 <div className="">
-                    { ( props.nft.active ) ? <CheckBadgeIcon className="h-6 w-6"/> : <div className="h-6 w-6"/> } 
+                    { ( props.nft.active ) ? <CheckBadgeIcon className="h-6 w-6 text-blue-400"/> : <div className="h-6 w-6"/> } 
                 </div>
             </div>
             

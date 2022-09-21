@@ -29,6 +29,7 @@ function FetchPositions(append: Dispatch<IUserStatus>, reset: () => void, data?:
             contractAddress: [],
             weight: 0,
             nfts: [],
+            isMe: false,
         }
         arrayOfStatus.push(userStatus);
     }

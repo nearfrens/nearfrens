@@ -12,7 +12,7 @@ export const Profil = (props: { onClick: () => void } ) => {
         <div className="w-full px-6 py-2 flex flex-col justify-start">
             <MapModalTitle title="User profil"/>
             <div className="h-80 w-full flex flex-col items-strech justify-start gap-2 overflow-y-auto">
-                { userNfts.map((item, index) => <UserNft nft={ item } key={ index } onClick={() => switchUserNfts(index)}/>) }
+                { userNfts.map((item, index) => <UserNft nft={ item } key={ index } onClick={() => switchUserNfts(item)}/>) }
             </div>
             <div className="mt-4 mb-4 flex justify-center gap-2">
                 <Button text="Refresh" onClick = { () => fetchUserNfts() } />

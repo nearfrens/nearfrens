@@ -127,7 +127,7 @@ const DisplayCollection = () => {
 
     return (
         <div className="w-full flex flex-col gap-2">
-            <div className="w-full" onClick={ () => switchUserNfts(index)} >
+            <div className="w-full" onClick={ () => switchUserNfts(userNfts[index])} >
                 <UserNftSmall nft={ userNfts[index] } />
             </div>
             <div className="w-full flex flex-row gap-2 items-center justify-center">

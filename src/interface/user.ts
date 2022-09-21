@@ -11,6 +11,7 @@ export interface IUserStatus {
     weight: number;
     tokenIds: Array<BigNumber>;
     nfts: Array<IUserNft>;
+    isMe: boolean;
 }
 
 export interface IUserNft {

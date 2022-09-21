@@ -12,8 +12,8 @@ import mapYourPositionsReducer from "../features/mapYourPositionsSlice";
 import mapZoomReducer from "../features/mapZoomSlice";
 import paramsStyleReducer from "../features/paramsStyleSlice";
 import userStatusReducer from "../features/userStatusSlice";
-import userListOfNftReducer from "../features/userListOfNftSlice";
-import userListOfCollectionStatusReducer from "../features/userListOfCollectionStatusSlice";
+import userNftsReducer from "../features/userNftsSlice";
+import userCollectionStatusReducer from "../features/userCollectionStatus";
 
 
 const reducers = combineReducers({
@@ -23,9 +23,9 @@ const reducers = combineReducers({
     mapYourPositions: mapYourPositionsReducer,
     mapZoom: mapZoomReducer,
     paramsStyle: paramsStyleReducer,
+    userNfts: userNftsReducer,
     userStatus: userStatusReducer,
-    userListOfNft: userListOfNftReducer,
-    userListOfCollectionStatus: userListOfCollectionStatusReducer,
+    userCollectionStatus: userCollectionStatusReducer,
 });
 
 const persistConfig = {
@@ -33,9 +33,9 @@ const persistConfig = {
     storage: storage,
     transforms: [ ],
     blacklist: [
+        "userCollectionStatus",
+        "userNfts",
         "userStatus",
-        "userListOfNft",
-        "userListOfCollectionStatus",
     ]
 };
 
