@@ -1,5 +1,5 @@
-import { Dispatch } from 'react';
-import { IUserStatus } from '../../interface/user';
+import { Dispatch } from "react";
+import { IUserStatus } from "../../interface/user";
 import { Marker } from "react-map-gl";
 import { ReactComponent as NearFrensSvg } from "../icons/svg/nearfrens.svg";
 import "./mapbox.css";
