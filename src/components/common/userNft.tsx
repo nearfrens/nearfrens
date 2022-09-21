@@ -67,22 +67,30 @@ export const UserNftSmall = (props: { nft: IUserNft }) => {
         `}
         >
 
-            <h5>
-                { props.nft.title }
-            </h5>
+            <div className="flex flex-row items-center justify-between gap-2">
+                <div className="border rounded-full py-1 px-1">
+                    <NetworkChainIcon enumNetwork={ props.nft.network! }/>
+                </div>
+                <h5 className="w-full text-left">
+                    { props.nft.title }
+                </h5>
+                <div className="border rounded-lg w-16 px-2 py-0.5 text-xs">
+                    { props.nft.tokenType }
+                </div>
+            </div>
 
             <div className="text-xs flex flex-row items-center justify-between gap-2">
                 <div className="text-xs flex flex-row items-center justify-start gap-2">
                     <div>
                         <QrCodeIcon className="h-4 w-4"/>
                     </div>
-                    <div className="text-xs">
+                    <div className="text-xs" onClick={() => { navigator.clipboard.writeText(props.nft.contractAddress) }}>
                         { truncateEthAddress(props.nft.contractAddress) }
                     </div>
                     <div>
                         <HashtagIcon className="h-4 w-4"/>
                     </div>
-                    <div className="text-xs">
+                    <div className="text-xs" onClick={() => { navigator.clipboard.writeText(props.nft.tokenId) }}>
                         {  (props.nft.tokenId.length < 32 ) ? props.nft.tokenId : props.nft.tokenId.slice(0, 10) + "..." + props.nft.tokenId.slice(-4) }
                     </div>
                 </div>

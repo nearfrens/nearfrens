@@ -12,10 +12,10 @@ import Switch from "../common/switch";
 
 
 export const Parameters = (props: { onClick: () => void } ) => {
-    const [ mapZoom ] = useMapZoom();
-    const [ mapCoordWindow ] = useMapCoordWindow();
-    const [ , setMapStyle] = useMapStyle();
-    const [ paramsStyle, setParamsStyle] = useParamsStyle();
+    const { mapZoom } = useMapZoom();
+    const { setMapStyle } = useMapStyle();
+    const { mapCoordWindow } = useMapCoordWindow();
+    const { paramsStyle, setParamsStyle } = useParamsStyle();
     
     return (
         <div className="w-full px-6 py-2 flex flex-col justify-start gap-2">

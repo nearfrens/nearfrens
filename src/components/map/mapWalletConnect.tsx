@@ -5,7 +5,7 @@ import { useParamsStyle } from '../../hooks/useParamsStyle';
 
 
 export const MapWalletConnect = () => {
-    const [paramsStyle] = useParamsStyle();
+    const { paramsStyle } = useParamsStyle();
     return (
       <ConnectButton.Custom>
         {({

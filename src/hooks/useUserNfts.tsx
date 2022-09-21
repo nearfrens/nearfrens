@@ -1,26 +1,35 @@
 import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { append, reset, switchActivity } from "../features/userListOfNftSlice";
-import { Alchemy, } from "alchemy-sdk";
-import { IUserNft } from "../interface/user";
+import { Alchemy } from "alchemy-sdk";
 import { useAlchemyConfigNetwork } from "./useAlchemyConfigNetwork";
+import { IUserNft } from "../interface/user";
 import { Dispatch } from "react";
 import { useAccount } from "wagmi";
 
 
-export const useUserListOfNft = (): [Array<IUserNft>, () => void, Dispatch<number>, () => void ] => {
+export interface QueryUserNfts {
+    userNfts: Array<IUserNft>;
+    appendUserNfts: Dispatch<IUserNft>
+    fetchUserNfts: () => void;
+    resetUserNfts: () => void;
+    switchUserNfts: Dispatch<number>;
+}
+
+export const useUserNfts = (): QueryUserNfts => {
+    
     const { address } = useAccount();
-    const [ alchemyConfig, enumNetwork ] = useAlchemyConfigNetwork();
+    const { alchemyConfig, enumNetwork } = useAlchemyConfigNetwork();
     const alchemy = new Alchemy(alchemyConfig);
 
-    const state: Array<IUserNft> = useAppSelector((state) => state.userListOfNft.nfts);
+    const userNfts: Array<IUserNft> = useAppSelector((state) => state.userListOfNft.nfts);
     const dispatch = useAppDispatch();
-    const appendState = (nft: IUserNft) => dispatch(append(nft));
-    const resetState = () => dispatch(reset());
-    const switchActivityState = (index: number) => dispatch(switchActivity(index));
+    const appendUserNfts = (nft: IUserNft) => dispatch(append(nft));
+    const resetUserNfts = () => dispatch(reset());
+    const switchUserNfts = (index: number) => dispatch(switchActivity(index));
 
-    const fetchState = async () => {
+    const fetchUserNfts = async () => {
         if (address === undefined) return;    
-        resetState();
+        resetUserNfts();
         const nfts = await alchemy.nft.getNftsForOwner(address);
         const nftList = nfts["ownedNfts"];
         for (let nft of nftList) {
@@ -33,9 +42,9 @@ export const useUserListOfNft = (): [Array<IUserNft>, () => void, Dispatch<numbe
                 tokenUri: nft.tokenUri?.raw,
                 network: enumNetwork,
             }
-            appendState(userNft);
+            appendUserNfts(userNft);
         }
-    }
+    };
 
-    return [state, fetchState, switchActivityState, resetState]
+    return { userNfts, appendUserNfts, fetchUserNfts, resetUserNfts, switchUserNfts };
 }

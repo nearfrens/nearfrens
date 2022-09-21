@@ -1,23 +1,27 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PublicIconForNearFrensWithText } from '../icons/publicIcon';
+import mapboxgl, { MapLayerMouseEvent } from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import Map, { ViewStateChangeEvent } from "react-map-gl";
+import { useAccount, useNetwork } from "wagmi";
+
+import { PublicIconForNearFrensWithText } from "../icons/publicIcon";
+
 import { useMapCoordWindow } from "../../hooks/useMapCoordWindow";
 import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
 import { useMapStyle } from "../../hooks/useMapStyle";
 import { useMapZoom } from "../../hooks/useMapZoom";
-import { MapWalletConnect } from './mapWalletConnect';
-import { MapButtonParameters } from './mapButtonParameters';
-import { MapButtonSharePosition } from './mapButtonSharePosition';
-import { MapButtonProfil } from "./mapButtonProfil";
-import { MapPins, UserPin } from './mapPins';
-import mapboxgl, { MapLayerMouseEvent } from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
-import 'mapbox-gl/dist/mapbox-gl.css';
-import Map, { ViewStateChangeEvent } from 'react-map-gl';
-import { useAccount, useNetwork } from "wagmi";
-import { useUserStatus } from "../../hooks/useUserStatus";
 import { useParamsStyle } from "../../hooks/useParamsStyle";
-import { useUserListOfNft } from "../../hooks/useUserListOfNft";
+import { useUserNfts } from "../../hooks/useUserNfts";
+import { useUserCollectionStatus } from "../../hooks/useUserCollectionStatus";
+
+import { MapWalletConnect } from "./mapWalletConnect";
+import { MapButtonParameters } from "./mapButtonParameters";
+import { MapButtonSharePosition } from "./mapButtonSharePosition";
+import { MapButtonProfil } from "./mapButtonProfil";
+import { MapPins, UserPin } from "./mapPins";
 import { MapButtonPositions } from "./mapButtonPositions";
+
+import "mapbox-gl/dist/mapbox-gl.css";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
 
 
@@ -27,13 +31,13 @@ export const MapPage = () =>  {
     const { isConnected, isDisconnected, isReconnecting } = useAccount();
     const { chain } = useNetwork();
       
-    const [ mapStyle ] = useMapStyle();
-    const [ paramsStyle ] = useParamsStyle();
-    const [ mapZoom, setMapZoom ] = useMapZoom();
-    const [ mapCoordWindow, setMapCoordWindow ] = useMapCoordWindow();
-    const [ , setMapCoordPosition ] = useMapCoordPosition();
-    const [,,resetUserStatus, fetchUserStatus ] = useUserStatus();
-    const [,fetchUserListOfNft,,resetListOfNft] = useUserListOfNft();
+    const { mapStyle } = useMapStyle();
+    const { mapZoom, setMapZoom } = useMapZoom();
+    const { paramsStyle } = useParamsStyle();
+    const { mapCoordWindow, setMapCoordWindow } = useMapCoordWindow();
+    const { setMapCoordPosition } = useMapCoordPosition();
+    const { fetchUserNfts } = useUserNfts();
+    const { fetchUserCollectionStatus, resetUserCollectionStatus } = useUserCollectionStatus();
 
     function onMapMove (event: ViewStateChangeEvent) {
         const coord = event.target.getCenter();
@@ -48,15 +52,21 @@ export const MapPage = () =>  {
     }
 
     useEffect(() => {
-        if (isConnected) fetchUserStatus();
-        if (isDisconnected) resetUserStatus();
-        if (isReconnecting) fetchUserStatus();
+        if (isConnected) {
+            fetchUserCollectionStatus();
+        }
+        if (isDisconnected) {
+            resetUserCollectionStatus();
+        }
+        if (isReconnecting) {
+            resetUserCollectionStatus();
+            fetchUserCollectionStatus();
+        }
     }, [isConnected, isDisconnected, isReconnecting]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        resetListOfNft();
-        fetchUserListOfNft();
-    }, [chain]) // eslint-disable-line react-hooks/exhaustive-deps
+        fetchUserNfts();
+    }, [ chain ]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="">
@@ -99,17 +109,17 @@ export const MapPage = () =>  {
                         </div>
                         <div className="flex flex-row items-center justify-start gap-2">
                             <MapWalletConnect/>
+                            <MapButtonParameters />
                         </div>
                     </div>
 
                     <div className="absolute flex justify-center bottom-12 inset-x-0 px-10">
                         <div className="flex flex-row justify-center items-center gap-4">
-                            <MapButtonPositions/>
+                            <MapButtonPositions />
                             <MapButtonSharePosition />
-                            <MapButtonProfil/>
-                            <MapButtonParameters />
+                            <MapButtonProfil />
                         </div>
-                    </div>                    
+                    </div>
 
                 </Map>
 

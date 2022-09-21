@@ -4,9 +4,14 @@ import { set } from "../features/mapStyleSlice";
 import { MapStyle } from "../interface/map";
 
 
-export const useMapStyle = (): [MapStyle, React.Dispatch<MapStyle>] => {
-    const state: MapStyle = useAppSelector((state) => state.mapStyle.mapStyle);
+export interface QueryUseMapStyle {
+    mapStyle: MapStyle,
+    setMapStyle: React.Dispatch<MapStyle>
+}
+
+export const useMapStyle = (): QueryUseMapStyle => {
+    const mapStyle: MapStyle = useAppSelector((state) => state.mapStyle.mapStyle);
     const dispatch = useAppDispatch();
-    const setState = (newMapStyle: MapStyle) => dispatch(set(newMapStyle));
-    return [state, setState];
+    const setMapStyle = (newMapStyle: MapStyle) => dispatch(set(newMapStyle));
+    return { mapStyle, setMapStyle };
 }

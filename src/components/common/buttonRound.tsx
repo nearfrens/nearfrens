@@ -4,7 +4,7 @@ import { useParamsStyle } from "../../hooks/useParamsStyle";
 
 
 export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHandler }) => {
-    const [ paramsStyle ] = useParamsStyle();
+    const { paramsStyle } = useParamsStyle();
     return (
         <button
             type="button"
@@ -29,9 +29,9 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
 
 export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {
     return (
-        <RoundButton 
-            icon={ <BookmarkIcon className="h-7 w-7"/>} 
-            onClick={ props.onClick } 
+        <RoundButton
+            icon={ <BookmarkIcon className="h-7 w-7"/>}
+            onClick={ props.onClick }
         />
     );
 }
@@ -39,26 +39,26 @@ export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {
 export const MapPinButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton 
-        icon={ <MapPinIcon className="h-8 w-8"/>} 
-        onClick={ props.onClick } 
+            icon={ <MapPinIcon className="h-8 w-8"/>} 
+            onClick={ props.onClick } 
         />
-        );
-    }
+    );
+}
     
 export const ParametersButton = (props: { onClick: ReactEventHandler }) => {
     return (
-        <RoundButton 
-            icon={ <Cog8ToothIcon className="h-8 w-8"/>} 
-            onClick={ props.onClick } 
+        <RoundButton
+            icon={ <Cog8ToothIcon className="h-5 w-5"/>}
+            onClick={ props.onClick }
         />
     );
 }
 
 export const UserProfilButton = (props: { onClick: ReactEventHandler }) => {
     return (
-        <RoundButton 
-            icon={ <UserCircleIcon className="h-8 w-8"/>} 
-            onClick={ props.onClick } 
+        <RoundButton
+            icon={ <UserCircleIcon className="h-8 w-8"/>}
+            onClick={ props.onClick }
         />
     );
 }

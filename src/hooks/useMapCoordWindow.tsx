@@ -4,9 +4,14 @@ import { set } from "../features/mapCoordWindowSlice";
 import { Coordinate } from "../interface/map";
 
 
-export const useMapCoordWindow = (): [Coordinate, React.Dispatch<Coordinate>] => {
-    const state: Coordinate = useAppSelector((state) => state.mapCoordWindow.coordinate);
+export interface QueryMapCoordWindow {
+    mapCoordWindow: Coordinate;
+    setMapCoordWindow: React.Dispatch<Coordinate>;
+}
+
+export const useMapCoordWindow = (): QueryMapCoordWindow => {
+    const mapCoordWindow: Coordinate = useAppSelector((state) => state.mapCoordWindow.coordinate);
     const dispatch = useAppDispatch();
-    const setState = (coordinate: Coordinate) => dispatch(set(coordinate));
-    return [state, setState];
+    const setMapCoordWindow = (coordinate: Coordinate) => dispatch(set(coordinate));
+    return { mapCoordWindow, setMapCoordWindow };
 }

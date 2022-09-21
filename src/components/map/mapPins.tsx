@@ -1,11 +1,13 @@
 import { useState, Dispatch } from 'react';
-import { useUserStatus } from '../../hooks/useUserStatus';
 import { UserStatus } from '../common/userStatus';
 import { IUserStatus } from '../../interface/user';
 import { Marker, Popup } from 'react-map-gl';
 import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
 import { CurrentChainIcon } from '../icons/blockchainIcon';
 import { ReactComponent as NearFrensSvg } from "../icons/svg/nearfrens.svg";
+import { useUserCollectionStatus } from '../../hooks/useUserCollectionStatus';
+import { UserNftSmall } from '../common/userNft';
+import './mapbox.css';
 
 
 interface IMapMarker {
@@ -21,8 +23,6 @@ interface IMapPopup {
 
 export const MapMarker = (props: IMapMarker) => {
     
-    // if ( props.status.longitude  || props.status.latitude ) return null ;
-
     let color: string;
     if (props.status.weight !== undefined) {
         color = "border-blue-" + (props.status.weight!).toString() ;
@@ -47,8 +47,10 @@ export const MapMarker = (props: IMapMarker) => {
             }}
             onClick={() => props.openPopup(props.index)}
         >
-            <div className={`border border-2 ${color} flex justify-center items-center rounded-full`}>
-                <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
+            <div className={`border border-0 ${color} flex justify-center items-center rounded-full`}>
+                {
+                    <NearFrensSvg className="h-6 w-6 text-stone-200 hover:text-white" />
+                }
             </div>
         </Marker>
     );
@@ -62,18 +64,27 @@ export const MapPopup = (props: IMapPopup) => {
             onClose={ props.closePopup }
             closeButton={ true }
             closeOnClick={ false }
-            anchor="bottom"
-            className="bg-transparent"
+            anchor="top"
+            className="max-w-64 bg-black"
+            maxWidth="none"
+            style={{
+                "background": "none",
+                "backgroundColor": "none",
+            }}
         >
-            <div className="bg-stone-800 rounded-lg">
-                <UserStatus userStatus={ props.status } />
+            <div className="w-64">
+                {
+                    ( !props.status.nfts ) ?
+                    <UserStatus userStatus={ props.status } /> :
+                    <UserNftSmall nft={ props.status.nfts[0] }/>
+                }
             </div>
         </Popup>
     )
 }
 
 export const UserPin = () => {
-    const [ mapCoordPosition, setMapCoordPosition ] = useMapCoordPosition();
+    const { mapCoordPosition, setMapCoordPosition } = useMapCoordPosition();
     return (
         <div>
             {
@@ -103,13 +114,14 @@ export const UserPin = () => {
 }
 
 export const MapPins = () => {
+    const { userCollectionStatus } = useUserCollectionStatus();
+    
     const [indexPopup, setIndexPopup] = useState<number|null>(null);
-    const [userStatus] = useUserStatus();
     return (
         <div>
             <div>
                 {
-                    userStatus.map(
+                    userCollectionStatus.map(
                         (status, key) => {
                             return (
                                 <MapMarker
@@ -125,9 +137,9 @@ export const MapPins = () => {
             </div>
             <div>
                 {                
-                    indexPopup !== null && userStatus.length > 0 &&
+                    indexPopup !== null && userCollectionStatus.length > 0 &&
                     <MapPopup
-                        status={ userStatus[indexPopup] }
+                        status={ userCollectionStatus[indexPopup] }
                         closePopup={ () => setIndexPopup(null) }
                     />
                 }

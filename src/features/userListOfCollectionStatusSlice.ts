@@ -3,16 +3,16 @@ import { RootState } from "../app/store";
 import { IUserStatus } from "../interface/user";
 
 
-export interface UserStatusState {
+export interface UserListOfCollectionStatusState {
     status: Array<IUserStatus>;
 }
 
-export const initialState: UserStatusState = {
+export const initialState: UserListOfCollectionStatusState = {
     status: [],
 }
 
-export const userStatusSlice = createSlice({
-    name: "userStatus",
+export const UserListOfCollectionStatusSlice = createSlice({
+    name: "UserListOfCollectionStatus",
     initialState,
     reducers: {
         append: (state, action: PayloadAction<IUserStatus>) => {
@@ -24,8 +24,8 @@ export const userStatusSlice = createSlice({
     },
 });
 
-export const { append, reset } = userStatusSlice.actions;
+export const { append, reset } = UserListOfCollectionStatusSlice.actions;
 
-export const selectMapCoordPosition = (state: RootState) => state.userStatus.status;
+export const selectUserListOfCollectionStatus = (state: RootState) => state.userListOfCollectionStatus.status;
 
-export default userStatusSlice.reducer;
+export default UserListOfCollectionStatusSlice.reducer;

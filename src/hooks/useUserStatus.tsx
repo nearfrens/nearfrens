@@ -9,6 +9,7 @@ import { convertLatInt32ToFloat, convertLngInt32ToFloat } from "../components/ma
 import { useNetworkContract } from "./useNetworkContract";
 import { Result } from "ethers/lib/utils";
 
+
 function FetchPositions(append: Dispatch<IUserStatus>, reset: () => void, data?: Result, userAddress?: string) {
 
     if (!userAddress) return;
@@ -24,7 +25,10 @@ function FetchPositions(append: Dispatch<IUserStatus>, reset: () => void, data?:
             latitude: convertLatInt32ToFloat(Number(item.latitude)),
             timestamp: item.timestamp.toString(),
             status: item.status,
+            tokenIds: [],
+            contractAddress: [],
             weight: 0,
+            nfts: [],
         }
         arrayOfStatus.push(userStatus);
     }
@@ -41,10 +45,19 @@ function FetchPositions(append: Dispatch<IUserStatus>, reset: () => void, data?:
 
 }
 
-export function useUserStatus(): [ Array<IUserStatus>, Dispatch<IUserStatus>, () => void, () => void ]{
+export interface QueryUserStatus {
+    userStatus: Array<IUserStatus>;
+    appendUserStatus: Dispatch<IUserStatus>;    
+    fetchUserStatus: () => void;
+    resetUserStatus: () => void;
+}
+
+export function useUserStatus(): QueryUserStatus {
     const { address } = useAccount();
-    const [ contractAddress ] = useNetworkContract();
-    const state: Array<IUserStatus> = useAppSelector((state) => state.userStatus.status);
+    const { contractAddress } = useNetworkContract();
+
+    const userStatus: Array<IUserStatus> = useAppSelector((state) => state.userStatus.status);
+    const dispatch = useAppDispatch();
     
     const { data } = useContractRead({
         addressOrName: contractAddress!,
@@ -54,9 +67,9 @@ export function useUserStatus(): [ Array<IUserStatus>, Dispatch<IUserStatus>, ()
         cacheOnBlock: true,
     })
 
-    const dispatch = useAppDispatch();
-    const appendState = (userStatus: IUserStatus) => dispatch(append(userStatus));
-    const resetState = () => dispatch(reset());
-    const fetchState = () => { FetchPositions(appendState, resetState, data, address) };
-    return [ state, appendState, resetState, fetchState ];
+    const appendUserStatus = (userStatus: IUserStatus) => dispatch(append(userStatus));
+    const resetUserStatus = () => dispatch(reset());
+    const fetchUserStatus = () => { FetchPositions(appendUserStatus, resetUserStatus, data, address) };
+
+    return { userStatus, appendUserStatus, fetchUserStatus, resetUserStatus }
 }

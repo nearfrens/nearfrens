@@ -4,9 +4,14 @@ import { set } from "../features/paramsStyleSlice";
 import { IParamsStyle } from "../interface/params";
 
 
-export const useParamsStyle = (): [IParamsStyle, React.Dispatch<IParamsStyle>] => {
-    const state: IParamsStyle = useAppSelector((state) => state.paramsStyle.params);
+export interface QueryParamsStyle {
+    paramsStyle: IParamsStyle
+    setParamsStyle: React.Dispatch<IParamsStyle>
+}
+
+export const useParamsStyle = (): QueryParamsStyle => {
+    const paramsStyle: IParamsStyle = useAppSelector((state) => state.paramsStyle.params);
     const dispatch = useAppDispatch();
-    const setState = (params: IParamsStyle) => dispatch(set(params));
-    return [state, setState];
+    const setParamsStyle = (params: IParamsStyle) => dispatch(set(params));
+    return { paramsStyle, setParamsStyle };
 }

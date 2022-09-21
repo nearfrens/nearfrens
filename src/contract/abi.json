@@ -199,6 +199,11 @@
                         "internalType": "address[]",
                         "name": "collections",
                         "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "tokenIds",
+                        "type": "uint256[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",
@@ -260,6 +265,11 @@
                         "internalType": "address[]",
                         "name": "collections",
                         "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "tokenIds",
+                        "type": "uint256[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",
@@ -302,6 +312,11 @@
                         "internalType": "address[]",
                         "name": "collections",
                         "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "tokenIds",
+                        "type": "uint256[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",
@@ -344,6 +359,11 @@
                         "internalType": "address[]",
                         "name": "collections",
                         "type": "address[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "tokenIds",
+                        "type": "uint256[]"
                     }
                 ],
                 "internalType": "struct NearFrens.Position[]",

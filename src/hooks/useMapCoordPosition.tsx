@@ -4,9 +4,14 @@ import { set } from "../features/mapCoordPositionSlice";
 import { Coordinate } from "../interface/map";
 
 
-export const useMapCoordPosition = (): [Coordinate|null, React.Dispatch<Coordinate|null>] => {
-    const state: Coordinate|null = useAppSelector((state) => state.mapCoordPosition.coordinate);
+export interface QueryMapCoordPosition {
+    mapCoordPosition: Coordinate|null;
+    setMapCoordPosition: React.Dispatch<Coordinate|null>;
+}
+
+export const useMapCoordPosition = (): QueryMapCoordPosition => {
+    const mapCoordPosition: Coordinate|null = useAppSelector((state) => state.mapCoordPosition.coordinate);
     const dispatch = useAppDispatch();
-    const setState = (coordinate: Coordinate|null) => dispatch(set(coordinate));
-    return [state, setState];
+    const setMapCoordPosition = (coordinate: Coordinate|null) => dispatch(set(coordinate));
+    return { mapCoordPosition, setMapCoordPosition };
 }

@@ -11,7 +11,7 @@ import { MapPinButton } from "../common/buttonRound";
 import contractAbi from "./../../contract/abi.json";
 
 import { useMapCoordPosition } from '../../hooks/useMapCoordPosition';
-import { useUserListOfNft } from "../../hooks/useUserListOfNft";
+import { useUserNfts } from "../../hooks/useUserNfts";
 import { useNetworkContract } from "../../hooks/useNetworkContract";
 
 import { convertLatFloatToInt32, convertLngFloatToInt32 } from "./mapFunction";
@@ -106,8 +106,10 @@ interface ITransactionData {
 // }
 
 const DisplayCollection = () => {
-    const [ userListOfNFt,,switchUserListOfNft ] = useUserListOfNft();
-    const maxLen: number = userListOfNFt.length;
+    const { userNfts, switchUserNfts }= useUserNfts();
+    
+    const maxLen: number = userNfts.length;
+
     const [ index, setIndex ] = useState<number>(0);
     const [ numActivated, setActivated ] = useState<number>(0);
     const decrementIndex = () => { if(index !== 0       ) setIndex(index - 1) };
@@ -115,18 +117,18 @@ const DisplayCollection = () => {
 
     useEffect(() => {
         let counter = 0;
-        for (let userNft of userListOfNFt) {
+        for (let userNft of userNfts) {
             if (userNft.active) {
                 counter += 1;
             }
         }
         setActivated(counter);
-    }, [ userListOfNFt ])
+    }, [ userNfts ])
 
     return (
         <div className="w-full flex flex-col gap-2">
-            <div className="w-full" onClick={ () => switchUserListOfNft(index)} >
-                <UserNftSmall nft={ userListOfNFt[index] } />
+            <div className="w-full" onClick={ () => switchUserNfts(index)} >
+                <UserNftSmall nft={ userNfts[index] } />
             </div>
             <div className="w-full flex flex-row gap-2 items-center justify-center">
                 <button onClick={ decrementIndex } disabled={index === 0}>
@@ -145,9 +147,10 @@ const DisplayCollection = () => {
 
 export const SharePosition = (props: { onClick: () => void } ) => {
     
-    const [ userListOfNFt ] = useUserListOfNft();
-    const [ contractAddress ] = useNetworkContract();
-    const [mapCoordPosition] = useMapCoordPosition();
+    const { userNfts } = useUserNfts();
+    const { contractAddress } = useNetworkContract();
+    const { mapCoordPosition } = useMapCoordPosition();
+    
     const [status, setStatus] = useState<string>("");
     const [zoneId] = useState<number>(0);
     const [tokenId, setTokenId] = useState<Array<string>>([]);
@@ -157,7 +160,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     useEffect(() => {
         let listTokenId = [];
         let listCollectionAddress = [];
-        for (let userNft of userListOfNFt) {
+        for (let userNft of userNfts) {
             if (userNft.active) {
                 listTokenId.push(userNft.tokenId);
                 listCollectionAddress.push(userNft.contractAddress);
@@ -165,7 +168,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
         }
         setTokenId(listTokenId);
         setCollectionAddress(listCollectionAddress);
-    }, [ userListOfNFt ]);
+    }, [ userNfts ]);
 
     const txData: ITransactionData = {
         longitude: convertLngFloatToInt32(mapCoordPosition?.longitude!),

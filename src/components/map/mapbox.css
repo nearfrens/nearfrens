@@ -1,0 +1,22 @@
+.mapboxgl-popup {
+    min-width: 200px;
+    max-width: none;
+    background: transparent;
+    background-color: transparent;
+    display: flex;
+    will-change: transform;
+    pointer-events: none;
+}
+
+.mapboxgl-popup-content {
+    background: rgb(41 37 36) !important;
+    background-color: rgb(41 37 36) !important;
+    display: flex;
+    border-radius: 10px !important;
+    opacity: 0.8;
+}
+
+.mapboxgl-popup-tip {    
+    border-bottom-color: rgb(41 37 36) !important;
+    opacity: 0.8;
+}
