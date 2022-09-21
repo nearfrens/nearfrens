@@ -1,5 +1,5 @@
 import { ReactElement, ReactEventHandler } from "react";
-import { BookmarkIcon, Cog8ToothIcon, MapPinIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { BookmarkIcon, Cog8ToothIcon, MapPinIcon, UserCircleIcon, UsersIcon, WalletIcon } from "@heroicons/react/24/outline";
 import { useParamsStyle } from "../../hooks/useParamsStyle";
 
 
@@ -32,7 +32,7 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
 export const BookmarkButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton
-            icon={ <BookmarkIcon className="h-8 w-8"/>}
+            icon={ <UsersIcon className="h-8 w-8"/>}
             onClick={ props.onClick }
         />
     );
@@ -59,7 +59,7 @@ export const ParametersButton = (props: { onClick: ReactEventHandler }) => {
 export const UserProfilButton = (props: { onClick: ReactEventHandler }) => {
     return (
         <RoundButton
-            icon={ <UserCircleIcon className="h-8 w-8"/>}
+            icon={ <WalletIcon className="h-8 w-8"/>}
             onClick={ props.onClick }
         />
     );
