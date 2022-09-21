@@ -72,5 +72,5 @@ export const MapPins = () => {
                 }
             </div>
         </div>
-    )
+    );
 }
