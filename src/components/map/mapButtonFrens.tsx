@@ -13,7 +13,7 @@ export const Frens = (props: { onClick: () => void } ) => {
 
     const [ showMe, setShowMe ] = useState<boolean>(false);
     const { current: map } = useMap();
-    const { userCollectionStatus, resetUserCollectionStatus, fetchUserCollectionStatus }= useUserCollectionStatus();
+    const { userCollectionStatus, resetUserCollectionStatus, fetchUserCollectionStatus, incrementUserCollectionStatusNftDisplay  }= useUserCollectionStatus();
 
     function flyTo (coord: ICoordinate) {
         if (!map) return;
@@ -38,9 +38,13 @@ export const Frens = (props: { onClick: () => void } ) => {
             <div className="h-72 w-full flex flex-col items-strech justify-start gap-2 overflow-y-auto">
                 { userCollectionStatus.map((status, key) => (
                     (status.isMe && !showMe ) ? null :
-                    <UserStatus key={ key } userStatus={ status } onClick={ () => onClickUserStatus(status) }/>
+                    <UserStatus
+                        key={ key } userStatus={ status } 
+                        onClickFlyTo={ () => onClickUserStatus(status) } 
+                        onClickImage={ () => { incrementUserCollectionStatusNftDisplay(status) }}
+                    />
                 )
-                )}                
+                )}
             </div>
             
             <div className="mt-4 mb-4 flex justify-center gap-2">

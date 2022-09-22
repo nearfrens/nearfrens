@@ -12,6 +12,7 @@ export interface IUserStatus {
     tokenIds: Array<BigNumber>;
     nfts: Array<IUserNft>;
     isMe: boolean;
+    displayNft: number;
 }
 
 export interface IUserNft {

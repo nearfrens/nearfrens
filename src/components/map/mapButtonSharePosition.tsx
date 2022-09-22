@@ -203,6 +203,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     const tx = useWaitForTransaction({ hash: writeContract.data?.hash });
 
     let buttonMessage = "Send";
+    let buttonActive = false;
 
     let txStatus = null;
     if ( error ) {
@@ -219,8 +220,13 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     } else {
         if ( gasLimit < 21000 ) {
             txStatus = <Log level="warning" msg="Insufficent gas" />;
+        } else if ( status.length > 62 ) {
+            txStatus = <Log level="warning" msg="Status is too long"/>;
+        } else if ( collectionAddress.length > 3) {
+            txStatus = <Log level="warning" msg="Select less than 4 collections"/>;
         } else {
-            txStatus = <Log msg="Share your position wit near frens" />;
+            txStatus = <Log msg="Ready to share your position with frens" />;
+            buttonActive = true;
         }
     }
 
@@ -266,7 +272,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
                 <Button 
                     text={ buttonMessage } 
                     onClick = { () => writeContract.write?.()}
-                    disabled = { !writeContract.write }
+                    disabled = { !writeContract.write  }
                 />
                 <Button
                     text={ "Close" } 

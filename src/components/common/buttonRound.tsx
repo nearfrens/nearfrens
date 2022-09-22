@@ -29,7 +29,7 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
                 (!props.tooltip) ? null :
                 <span
                     className="
-                        w-32 px-2 py-1
+                        w-32 px-3 py-3
                         bg-stone-800
                         absolute
                         bottom-16 -translate-x-1/2 left-1/2

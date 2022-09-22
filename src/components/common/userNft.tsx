@@ -4,9 +4,9 @@ import { IUserNft } from "../../interface/user";
 import { NetworkChainIcon } from "../icons/blockchainIcon";
 
 
-export const UserNftImage = (props: { nft: IUserNft }) => {
-    const imageUrl = props.nft.imageUrl;
-    if (!imageUrl) {
+export const UserNftImage = (props: { image: string|null }) => {
+    const imageUrl = props.image;
+    if (!imageUrl || imageUrl === null) {
         return null;
     } else {
         if ( imageUrl.startsWith("http")) {
@@ -33,7 +33,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
         >
 
             <div className="w-1/4">
-                <UserNftImage nft={ props.nft }/>
+                <UserNftImage image={ props.nft.imageUrl! }/>
             </div>
 
             <div className="w-3/4 flex flex-col items-start justify-between">

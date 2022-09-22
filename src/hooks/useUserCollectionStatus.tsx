@@ -4,7 +4,7 @@ import { IUserStatus } from "../interface/user";
 import { useNetworkContract } from "./useNetworkContract";
 import { useUserNfts } from "./useUserNfts";
 import { convertLatInt32ToFloat, convertLngInt32ToFloat } from "../components/map/mapFunction";
-import { append, reset } from "../features/userCollectionStatus";
+import { append, reset, incrementDisplayNft as _incrementDisplayNft } from "../features/userCollectionStatusSlice";
 import { ethers } from "ethers";
 import { useAlchemyConfigNetwork } from "./useAlchemyConfigNetwork";
 import { useAccount, useNetwork } from "wagmi";
@@ -25,6 +25,7 @@ function ParseInput (data: Array<any>, currentAddress: string): Array<IUserStatu
             weight: 0,
             nfts: [],
             isMe: currentAddress === item.user,
+            displayNft: 0,
         }
         parsedData.push(userStatus);
     }
@@ -36,6 +37,7 @@ export interface QueryUserCollectionStatus {
     appendUserCollectionStatus: Dispatch<IUserStatus>;
     fetchUserCollectionStatus: () => void;
     resetUserCollectionStatus: () => void;
+    incrementUserCollectionStatusNftDisplay: Dispatch<IUserStatus>;
 }
 
 
@@ -47,11 +49,11 @@ export function useUserCollectionStatus(): QueryUserCollectionStatus {
     const { alchemyConfig, enumNetwork } = useAlchemyConfigNetwork();
     const { userNfts } = useUserNfts();
 
-
     const userCollectionStatus: Array<IUserStatus> = useAppSelector((state) => Object.values(state.userCollectionStatus.mapping));
     const dispatch = useAppDispatch();
     const appendUserCollectionStatus = (userStatus: IUserStatus) => dispatch(append(userStatus));
     const resetUserCollectionStatus = () => dispatch(reset());
+    const incrementUserCollectionStatusNftDisplay = (userStatus: IUserStatus) => dispatch(_incrementDisplayNft(userStatus));
 
     const fetchUserCollectionStatus = async () => { 
 
@@ -66,7 +68,7 @@ export function useUserCollectionStatus(): QueryUserCollectionStatus {
         }
 
         if (!address) {
-            console.log("Emptu address");
+            console.log("Empty address");
             return ;
         }
 
@@ -89,45 +91,46 @@ export function useUserCollectionStatus(): QueryUserCollectionStatus {
 
         resetUserCollectionStatus();
         for (let collection of listOfCollectionAddress) {
-            let data = await smartContrat.getPositionsforCollections([collection], 0);
-            console.log(data);
-            let newUserListOfCollection = ParseInput(data[0], address);
-            for (let userStatus of newUserListOfCollection) {        
-                
-                let nft = await alchemy.nft.getNftMetadata(userStatus.contractAddress[0], userStatus.tokenIds[0]);
-
-                let imageUrl;
             
-                if (nft.media && nft.media.length > 0) {
-                    const raw: string = nft.media[0].raw;
-                    const gateway: string = nft.media[0].gateway;
-                    if ( raw.startsWith("http") ) {
-                        imageUrl = raw;
-                    } else {
-                        imageUrl = gateway;
-                    }
-                    console.log(imageUrl);
-                    console.log(nft);
-                }
-    
-                let userNft = {
-                    contractAddress: nft.contract.address,
-                    description: nft.description,
-                    title: nft.title,
-                    tokenId: nft.tokenId,
-                    tokenType: nft.tokenType,
-                    tokenUri: nft.tokenUri?.raw,
-                    imageUrl: imageUrl,
-                    network: enumNetwork,
-                }
+            let data = await smartContrat.getPositionsforCollections([collection], 0);            
+            
+            let newUserListOfCollection = ParseInput(data[0], address);
 
-                userStatus.nfts.push(userNft);
+            for (let userStatus of newUserListOfCollection) {        
+                                
+                for (let i = 0; i < userStatus.contractAddress.length; i++) {
+                    let nft = await alchemy.nft.getNftMetadata(userStatus.contractAddress[i], userStatus.tokenIds[i]);
+                    
+                    let imageUrl;
+                    if (nft.media && nft.media.length > 0) {
+                        const raw: string = nft.media[0].raw;
+                        const gateway: string = nft.media[0].gateway;
+                        if ( raw.startsWith("http") ) {
+                            imageUrl = raw;
+                        } else {
+                            imageUrl = gateway;
+                        }
+                    }
+
+                    let userNft = {
+                        contractAddress: nft.contract.address,
+                        description: nft.description,
+                        title: nft.title,
+                        tokenId: nft.tokenId,
+                        tokenType: nft.tokenType,
+                        tokenUri: nft.tokenUri?.raw,
+                        imageUrl: imageUrl,
+                        network: enumNetwork,
+                    }
+
+                    userStatus.nfts.push(userNft);
+                }
     
                 appendUserCollectionStatus(userStatus);
             }
         }
     };
 
-    return { userCollectionStatus, appendUserCollectionStatus, fetchUserCollectionStatus, resetUserCollectionStatus };
+    return { userCollectionStatus, appendUserCollectionStatus, fetchUserCollectionStatus, resetUserCollectionStatus, incrementUserCollectionStatusNftDisplay };
 
 }

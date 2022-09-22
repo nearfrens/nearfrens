@@ -120,7 +120,7 @@ export const MapPage = () =>  {
                     </div>
 
                     <div className="absolute flex justify-center bottom-24 inset-x-0 px-12">
-                        <div className="flex flex-row justify-center items-end gap-6">
+                        <div className="flex flex-row justify-center items-end gap-10">
                             { (isConnected) ? <MapButtonFrens /> : null }
                             { (isConnected) ? <MapButtonSharePosition /> : null }
                             { (isConnected) ? <MapButtonAssets /> : null }

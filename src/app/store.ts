@@ -13,7 +13,7 @@ import mapZoomReducer from "../features/mapZoomSlice";
 import paramsStyleReducer from "../features/paramsStyleSlice";
 import userStatusReducer from "../features/userStatusSlice";
 import userNftsReducer from "../features/userNftsSlice";
-import userCollectionStatusReducer from "../features/userCollectionStatus";
+import userCollectionStatusReducer from "../features/userCollectionStatusSlice";
 
 
 const reducers = combineReducers({
