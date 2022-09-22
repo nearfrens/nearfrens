@@ -6,7 +6,7 @@ import { useEnsName, useNetwork } from "wagmi";
 import { UserNftImage } from "./userNft";
 
 
-export const UserStatus = (props: { userStatus: IUserStatus, onClickFlyTo?: () => void, onClickImage?: () => void }) => {
+export const UserStatus = (props: { userStatus: IUserStatus, onClickFlyTo?: () => void, onClickImage?: () => void, onClickMessage?: () => void }) => {
 
     let color: string;
     if (props.userStatus.weight !== undefined) {
@@ -19,7 +19,8 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClickFlyTo?: () =
     const ensName = useEnsName({ address: props.userStatus.address, cacheTime: 10_000, chainId: chains[0].id });
     
     return (
-        <div className={`            
+        <div className={` 
+                px-2 py-2
                 border
                 flex flex-row justify-between items-stretch gap-2
                 ${ color }
@@ -27,9 +28,11 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClickFlyTo?: () =
             `}
         >
             
-            <div className="w-1/3 hover:bg-stone-100/10">
-                <button onClick={ props.onClickImage }>
-                    { 
+            <div className="w-1/3 hover:bg-stone-100/10 flex justify-center items-center">
+                <button 
+                    // onClick={ props.onClickImage }
+                >
+                    {
                         (props.userStatus.nfts && props.userStatus.nfts.length > 0) ?
                         <UserNftImage image={ props.userStatus.nfts[props.userStatus.displayNft].imageUrl! }/> :
                         null
@@ -37,7 +40,11 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClickFlyTo?: () =
                 </button>
             </div>
 
-            <div className="group w-2/3 flex flex-col justify-between items-start hover:bg-stone-800" onClick={ props.onClickFlyTo }>
+            <div 
+                className="group w-2/3 flex flex-col justify-between items-start hover:bg-stone-800" 
+                // onClick={ props.onClickFlyTo }
+                onClick={ props.onClickMessage }
+            >
                 <div className="flex flex-row items-center justify-between gap-2">
                     <div className="text-sm flex flex-row items-center justify-start gap-2">
                         <div>
@@ -67,7 +74,7 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClickFlyTo?: () =
                         <div>
                             <ClockIcon className="h-5 w-5"/>
                         </div>
-                        <div>
+                        <div className="text-xs">
                             { ComputeCurrentTimeDifference(Number(props.userStatus.timestamp) * 1000) }
                         </div>
                         {/* <div>

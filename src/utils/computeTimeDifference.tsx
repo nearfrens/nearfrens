@@ -18,13 +18,18 @@ export function ComputeTimeDifference(current: number, previous: number): string
          return Math.round(elapsed/msPerHour ) + " hours ago";   
     }
     else if (elapsed < msPerMonth) {
-        return 'approximately ' + Math.round(elapsed/msPerDay) + " days ago";   
+        const number = Math.round(elapsed/msPerDay);
+        if (number === 1) {
+            return 'less than ' + Math.round(elapsed/msPerDay) + " day ago";
+        } else {
+            return 'less than ' + Math.round(elapsed/msPerDay) + " days ago";
+        }
     }
     else if (elapsed < msPerYear) {
-        return 'approximately ' + Math.round(elapsed/msPerMonth) + " months ago";   
+        return 'less than ' + Math.round(elapsed/msPerMonth) + " months ago";   
     }
     else {
-        return 'approximately ' + Math.round(elapsed/msPerYear ) + " years ago";   
+        return 'less than ' + Math.round(elapsed/msPerYear ) + " years ago";   
     }
 
 }

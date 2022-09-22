@@ -203,7 +203,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     const tx = useWaitForTransaction({ hash: writeContract.data?.hash });
 
     let buttonMessage = "Send";
-    let buttonActive = false;
+    // let buttonActive = false;
 
     let txStatus = null;
     if ( error ) {
@@ -226,7 +226,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
             txStatus = <Log level="warning" msg="Select less than 4 collections"/>;
         } else {
             txStatus = <Log msg="Ready to share your position with frens" />;
-            buttonActive = true;
+            // buttonActive = true;
         }
     }
 

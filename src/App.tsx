@@ -9,6 +9,7 @@ import { getDefaultWallets, RainbowKitProvider, midnightTheme } from "@rainbow-m
 import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
 import { providerKey } from "./interface/network";
+import XmtpProvider from "./components/XmtpProvider";
 
 
 const { chains, provider } = configureChains(
@@ -44,12 +45,14 @@ function App() {
       <div className="App">
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider chains={chains} theme={midnightTheme()}>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={ <MapPage/> } />
-                <Route path="/about" element={ <AboutPage />} />
-              </Routes>
-            </BrowserRouter>
+            <XmtpProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={ <MapPage/> } />
+                  <Route path="/about" element={ <AboutPage />} />
+                </Routes>
+              </BrowserRouter>
+            </XmtpProvider>
           </RainbowKitProvider>
         </WagmiConfig>
       </div>
