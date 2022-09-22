@@ -1,9 +1,9 @@
 import truncateEthAddress from "truncate-eth-address";
-import { MapPinIcon, ClockIcon, UserIcon, PaperAirplaneIcon, HomeIcon, ChatBubbleLeftIcon  } from "@heroicons/react/24/outline";
+import { ClockIcon, UserIcon, PaperAirplaneIcon, HomeIcon, ChatBubbleLeftIcon  } from "@heroicons/react/24/outline";
 import { IUserStatus } from "../../interface/user";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
 import { useEnsName, useNetwork } from "wagmi";
-import { UserNft, UserNftImage } from "./userNft";
+import { UserNftImage } from "./userNft";
 
 
 export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => void }) => {
