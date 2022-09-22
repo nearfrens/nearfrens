@@ -121,9 +121,9 @@ export const MapPage = () =>  {
 
                     <div className="absolute flex justify-center bottom-24 inset-x-0 px-12">
                         <div className="flex flex-row justify-center items-end gap-6">
-                            <MapButtonFrens />
-                            <MapButtonSharePosition />
-                            <MapButtonAssets />                           
+                            { (isConnected) ? <MapButtonFrens /> : null }
+                            { (isConnected) ? <MapButtonSharePosition /> : null }
+                            { (isConnected) ? <MapButtonAssets /> : null }
                         </div>
                     </div>
 

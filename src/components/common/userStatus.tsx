@@ -1,5 +1,5 @@
 import truncateEthAddress from "truncate-eth-address";
-import { MapPinIcon, ClockIcon, EnvelopeIcon, UserIcon, PaperAirplaneIcon, HomeIcon  } from "@heroicons/react/24/outline";
+import { MapPinIcon, ClockIcon, UserIcon, PaperAirplaneIcon, HomeIcon, ChatBubbleLeftIcon  } from "@heroicons/react/24/outline";
 import { IUserStatus } from "../../interface/user";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
 
@@ -21,7 +21,7 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => voi
                 border 
                 ${ color }
                 rounded-lg
-                hover:bg-stone-700
+                hover:bg-stone-800
                 group
             `}
             onClick={ props.onClick }
@@ -54,7 +54,7 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => voi
             
             <div className="flex flex-row items-center justify-start gap-2">
                 <div>
-                    <EnvelopeIcon className="h-4 w-4"/>
+                    <ChatBubbleLeftIcon className="h-4 w-4"/>
                 </div>
                 <div>
                     { props.userStatus.status }

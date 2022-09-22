@@ -13,6 +13,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
                 border
                 rounded-lg
                 ${ props.nft.active ? "bg-stone-700" : null }
+                hover:bg-stone-800
             `}
             onClick={ props.onClick }
         >
@@ -24,7 +25,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
                 <h5 className="w-full text-left">
                     { props.nft.title }
                 </h5>
-                <div className="border rounded-lg w-16 px-2 py-0.5 text-xs">
+                <div className="border rounded-lg w-16 px-2 py-0.5 text-xs border-blue-400 text-blue-400">
                     { props.nft.tokenType }
                 </div>
             </div>
@@ -65,7 +66,8 @@ export const UserNftSmall = (props: { nft: IUserNft }) => {
             flex flex-col justify-start gap-2 
             border
             rounded-lg
-            ${ props.nft.active ? "bg-stone-700" : null }
+            ${ props.nft.active ? "bg-stone-700" : null } 
+            hover:bg-stone-700
         `}
         >
 
