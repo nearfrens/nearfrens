@@ -4,21 +4,21 @@ import { IUserNft } from "../../interface/user";
 import { NetworkChainIcon } from "../icons/blockchainIcon";
 
 
-export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
-    
+export const UserNftImage = (props: { nft: IUserNft }) => {
     const imageUrl = props.nft.imageUrl;
- 
-    let imageLogo;
     if (!imageUrl) {
-        imageLogo = null;
+        return null;
     } else {
         if ( imageUrl.startsWith("http")) {
-            imageLogo = <img src={ imageUrl } className="overflow-hidden rounded-lg" alt="User Nft"/>;
+            return <img src={ imageUrl } className="overflow-hidden rounded-lg" alt="User Nft"/>;
         } else {
-            imageLogo = <embed src={ imageUrl } className="w-full overflow-hidden rounded-lg"/>;
+            return <embed src={ imageUrl } className="w-full overflow-hidden rounded-lg"/>;
         }
     }
+};
 
+export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
+    
     return (
         <div 
             className={`
@@ -33,7 +33,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
         >
 
             <div className="w-1/4">
-                { imageLogo }
+                <UserNftImage nft={ props.nft }/>
             </div>
 
             <div className="w-3/4 flex flex-col items-start justify-between">

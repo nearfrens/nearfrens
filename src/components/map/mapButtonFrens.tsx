@@ -11,6 +11,7 @@ import { IUserStatus } from "../../interface/user";
 
 export const Frens = (props: { onClick: () => void } ) => {
 
+    const [ showMe, setShowMe ] = useState<boolean>(false);
     const { current: map } = useMap();
     const { userCollectionStatus, resetUserCollectionStatus, fetchUserCollectionStatus }= useUserCollectionStatus();
 
@@ -27,10 +28,19 @@ export const Frens = (props: { onClick: () => void } ) => {
     return (
         <div className="w-full px-6 py-2 flex flex-col justify-start">            
             
-            <MapModalTitle title="Discover friends"/>
+            <div className="flex flex-row justify-between items-center">
+                <MapModalTitle title="Discover friends"/>
+                <div className="w-24 text-xs"> 
+                    <Button text={ "Show me" } onClick={ () => setShowMe(!showMe)}/>
+                </div>
+            </div>
             
-            <div className="h-64 w-full flex flex-col items-strech justify-start gap-2 overflow-y-auto">
-                { userCollectionStatus.map((status, key) => <UserStatus key={ key } userStatus={ status } onClick={ () => onClickUserStatus(status) }/>) }                
+            <div className="h-72 w-full flex flex-col items-strech justify-start gap-2 overflow-y-auto">
+                { userCollectionStatus.map((status, key) => (
+                    (status.isMe && !showMe ) ? null :
+                    <UserStatus key={ key } userStatus={ status } onClick={ () => onClickUserStatus(status) }/>
+                )
+                )}                
             </div>
             
             <div className="mt-4 mb-4 flex justify-center gap-2">

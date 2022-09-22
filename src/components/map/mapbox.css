@@ -13,7 +13,7 @@
     background-color: rgb(41 37 36) !important;
     display: flex;
     border-radius: 10px !important;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .mapboxgl-popup-tip {    
