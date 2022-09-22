@@ -6,7 +6,7 @@ import { Button } from "../common/button";
 import { Log } from "../common/log";
 import { MapInput } from "../common/input";
 import { UserNftSmall } from "../common/userNft";
-import { MapPinButton } from "../common/buttonRound";
+import { LocationButton } from "../common/buttonRound";
 
 import contractAbi from "./../../contract/abi.json";
 
@@ -16,6 +16,9 @@ import { useNetworkContract } from "../../hooks/useNetworkContract";
 
 import { convertLatFloatToInt32, convertLngFloatToInt32 } from "./mapFunction";
 import { MapModal, MapModalTitle, MapModalSubTitle } from "./mapModal";
+import { useMapCoordWindow } from "../../hooks/useMapCoordWindow";
+import { useMap } from "react-map-gl";
+import { ICoordinate } from "./mapInterface";
 
 
 interface ITransactionData {
@@ -197,10 +200,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     });
     
     const writeContract = useContractWrite(config);
-
-    const tx = useWaitForTransaction({
-        hash: writeContract.data?.hash,
-    })
+    const tx = useWaitForTransaction({ hash: writeContract.data?.hash });
 
     let buttonMessage = "Send";
 
@@ -278,19 +278,72 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     );
 }
 
+
+export const ProposePosition = (props: { onClick: () => void } ) => {
+
+    const { current: map } = useMap();
+    const { setMapCoordPosition } = useMapCoordPosition();
+    const { mapCoordWindow } = useMapCoordWindow();
+
+    function flyTo (coord: ICoordinate) {
+        if (!map) return;
+        map.flyTo({center: [coord.longitude, coord.latitude], zoom: 12});
+    }
+
+    function DropMeHere () {
+        props.onClick();
+        flyTo(mapCoordWindow);
+        setMapCoordPosition(mapCoordWindow);
+    };
+    
+    return (
+        <div className="w-full px-6 py-2 flex flex-col justify-start">
+
+            <MapModalTitle title="Select a position first" />
+
+            <div>
+                Drop your position on the map to show frens where your are.
+            </div>
+
+            <div className="mt-4 mb-4 flex justify-center gap-4">
+                <Button
+                    text={ "Drop me here" }
+                    onClick = { DropMeHere }
+                />
+                <Button
+                    text={ "Close" }
+                    onClick = { props.onClick }
+                />
+            </div>
+
+        </div>
+    )
+}
+
 export const MapButtonSharePosition = () => {
+    
     const [isOpen, setIsOpen] = useState(false);
+    const { mapCoordPosition } = useMapCoordPosition();
+
     return (
         <div>
-            <MapPinButton
+            
+            <LocationButton
                 onClick={ () => setIsOpen(true) }
+                tooltip={ "Share your positions with frens" }
             />
+
             <MapModal
-                content={ <SharePosition onClick={ () => setIsOpen(false) } /> }
+                content={ 
+                    (!mapCoordPosition) ?
+                    <ProposePosition onClick={ () => setIsOpen(false) } /> :
+                    <SharePosition onClick={ () => setIsOpen(false) } /> 
+                }
                 isOpen={ isOpen }
                 openModal={ () => setIsOpen(true) }
                 closeModal={ () => setIsOpen(false) } 
             />
+
         </div>
     );
 }

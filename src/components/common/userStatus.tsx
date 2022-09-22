@@ -2,14 +2,9 @@ import truncateEthAddress from "truncate-eth-address";
 import { MapPinIcon, ClockIcon, EnvelopeIcon, UserIcon, PaperAirplaneIcon, HomeIcon  } from "@heroicons/react/24/outline";
 import { IUserStatus } from "../../interface/user";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
-import { useAccount } from "wagmi";
-import { useMap } from "react-map-gl";
 
 
-export const UserStatus = (props: { userStatus: IUserStatus }) => {
-
-    const { address } = useAccount();
-    const { current: map } = useMap();
+export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => void }) => {
 
     let color: string;
     if (props.userStatus.weight !== undefined) {
@@ -18,10 +13,6 @@ export const UserStatus = (props: { userStatus: IUserStatus }) => {
         color = "border-stone-200";
     }
     
-    function flyTo () {
-        if (!map) return;
-        map.flyTo({center: [props.userStatus.longitude, props.userStatus.latitude]});
-    }
 
     return (
         <div className={`
@@ -33,7 +24,7 @@ export const UserStatus = (props: { userStatus: IUserStatus }) => {
                 hover:bg-stone-700
                 group
             `}
-            onClick={ flyTo }
+            onClick={ props.onClick }
         >
             <div className="flex flex-row items-center justify-between gap-2">
                 <div className="text-xs flex flex-row items-center justify-start gap-2">

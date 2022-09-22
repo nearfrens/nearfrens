@@ -32,7 +32,7 @@ export const MapModal = (props: PropsMapModal) => {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-stone-600 bg-opacity-25" />
+                    <div className="fixed inset-0 bg-stone-600 bg-opacity-90" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">

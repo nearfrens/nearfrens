@@ -1,12 +1,10 @@
 import { Dispatch, useState } from "react";
 import { Marker, MarkerDragEvent } from "react-map-gl";
 import { useMapCoordPosition } from "../../hooks/useMapCoordPosition";
-import { CurrentChainIcon } from "../icons/blockchainIcon";
 import { useUserCollectionStatus } from "../../hooks/useUserCollectionStatus";
 import { MapMarker } from "./mapMarker";
 import { MapPopup } from "./mapPopup";
 import "./mapbox.css";
-
 
 
 export const UserPin = (props: { onDrag: Dispatch<MarkerDragEvent> }) => {
@@ -32,9 +30,7 @@ export const UserPin = (props: { onDrag: Dispatch<MarkerDragEvent> }) => {
                     onClick={ () => setMapCoordPosition(null) }
                     onDrag={ props.onDrag }
                 >
-                    <div className="bg-transparent rounded-full w-7 h-7">
-                        <CurrentChainIcon />
-                    </div>
+                    <div className="w-6 h-6 border border-blue-400 rounded-full border-[5px] bg-white"/>                    
                 </Marker>
             }
         </div>

@@ -68,7 +68,7 @@ export const Parameters = (props: { onClick: () => void } ) => {
             <Switch 
                 label={ `Enable button style ${ paramsStyle.isFun ? "'Classic'" : "'Fun'" }` }
                 enabled={ paramsStyle.isFun! } 
-                setEnabled={ () => setParamsStyle({isFun: !paramsStyle.isFun })}
+                setEnabled={ () => setParamsStyle({isFun: !paramsStyle.isFun }) }
             />
 
             <div className="mt-4 mb-4 flex justify-center">
@@ -86,12 +86,13 @@ export const MapButtonParameters = () => {
         <div>
             <ParametersButton
                 onClick={ () => setIsOpen(true) }
+                tooltip={ "Update parameters" }
             />
             <MapModal
-                content={ content } 
+                content={ content }
                 isOpen={ isOpen }
                 openModal={ () => setIsOpen(true) }
-                closeModal={ () => setIsOpen(false) } 
+                closeModal={ () => setIsOpen(false) }
             />
         </div>
     );

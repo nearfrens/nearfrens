@@ -17,9 +17,9 @@ import { useUserCollectionStatus } from "../../hooks/useUserCollectionStatus";
 import { MapWalletConnect } from "./mapWalletConnect";
 import { MapButtonParameters } from "./mapButtonParameters";
 import { MapButtonSharePosition } from "./mapButtonSharePosition";
-import { MapButtonProfil } from "./mapButtonProfil";
+import { MapButtonAssets } from "./mapButtonAssets";
 import { MapPins, UserPin } from "./mapPins";
-import { MapButtonPositions } from "./mapButtonPositions";
+import { MapButtonFrens } from "./mapButtonFrens";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
@@ -119,11 +119,11 @@ export const MapPage = () =>  {
                         </div>
                     </div>
 
-                    <div className="absolute flex justify-center bottom-20 inset-x-0 px-12">
-                        <div className="flex flex-row justify-center items-center gap-4">
-                            <MapButtonPositions />
+                    <div className="absolute flex justify-center bottom-24 inset-x-0 px-12">
+                        <div className="flex flex-row justify-center items-end gap-6">
+                            <MapButtonFrens />
                             <MapButtonSharePosition />
-                            <MapButtonProfil />
+                            <MapButtonAssets />                           
                         </div>
                     </div>
 

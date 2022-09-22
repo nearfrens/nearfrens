@@ -33,6 +33,7 @@ export const useUserNfts = (): QueryUserNfts => {
         const nfts = await alchemy.nft.getNftsForOwner(address);
         const nftList = nfts["ownedNfts"];
         for (let nft of nftList) {
+            console.log(nft);
             let userNft: IUserNft = {
                 contractAddress: nft.contract.address,
                 description: nft.description,
