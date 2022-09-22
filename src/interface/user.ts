@@ -23,4 +23,5 @@ export interface IUserNft {
     tokenId: string;
     tokenType: string;
     tokenUri?: string;
+    imageUrl?: string;
 }

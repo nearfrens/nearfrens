@@ -2,7 +2,7 @@ import truncateEthAddress from "truncate-eth-address";
 import { MapPinIcon, ClockIcon, UserIcon, PaperAirplaneIcon, HomeIcon, ChatBubbleLeftIcon  } from "@heroicons/react/24/outline";
 import { IUserStatus } from "../../interface/user";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
-
+import { useEnsName, useNetwork } from "wagmi";
 
 export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => void }) => {
 
@@ -12,8 +12,11 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => voi
     } else {
         color = "border-stone-200";
     }
-    
 
+    const { chains } = useNetwork();    
+    const ensName = useEnsName({ address: props.userStatus.address, cacheTime: 10_000, chainId: chains[0].id });
+    // const ensAvatar = useEnsAvatar({ addressOrName: props.userStatus.address, cacheTime: 10_000, chainId: chains[0].id });
+    
     return (
         <div className={`
                 px-2 py-2
@@ -32,7 +35,11 @@ export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => voi
                         <UserIcon className="h-4 w-4"/>
                     </div>
                     <div>
-                        { truncateEthAddress(props.userStatus?.address!) }
+                        { 
+                            (!ensName.data) ? 
+                            truncateEthAddress(props.userStatus?.address!) :
+                            ensName.data
+                        }
                     </div>
                     <div>
                         ·
