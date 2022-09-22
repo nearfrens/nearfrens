@@ -6,8 +6,7 @@ import { NetworkChainIcon } from "../icons/blockchainIcon";
 
 export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
     const imageUrl = props.nft.imageUrl;
-    console.log(imageUrl);
-
+ 
     let imageLogo;
     if (!imageUrl) {
         imageLogo = null;

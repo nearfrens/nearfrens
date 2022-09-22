@@ -5,7 +5,6 @@ import { useAlchemyConfigNetwork } from "./useAlchemyConfigNetwork";
 import { IUserNft } from "../interface/user";
 import { Dispatch } from "react";
 import { useAccount } from "wagmi";
-import { rainbow } from "@rainbow-me/rainbowkit/dist/wallets/walletConnectors/rainbow/rainbow";
 
 
 export interface QueryUserNfts {
@@ -30,11 +29,16 @@ export const useUserNfts = (): QueryUserNfts => {
 
     const fetchUserNfts = async () => {
         if (address === undefined) return;    
+        
         resetUserNfts();
+        
         const nfts = await alchemy.nft.getNftsForOwner(address);
         const nftList = nfts["ownedNfts"];
+        
         for (let nft of nftList) {
+            
             let imageUrl;
+            
             if (nft.media && nft.media.length > 0) {
                 const raw: string = nft.media[0].raw;
                 const gateway: string = nft.media[0].gateway;
@@ -45,7 +49,7 @@ export const useUserNfts = (): QueryUserNfts => {
                 }
                 console.log(imageUrl);
             }
-            console.log(nft);
+
             let userNft: IUserNft = {
                 contractAddress: nft.contract.address,
                 description: nft.description,
@@ -56,6 +60,7 @@ export const useUserNfts = (): QueryUserNfts => {
                 imageUrl: imageUrl,
                 network: enumNetwork,
             }
+
             appendUserNfts(userNft);
         }
     };
