@@ -1,5 +1,5 @@
 import { Popup } from "react-map-gl";
-import { UserNftSmall } from "../common/userNft";
+import { UserNft } from "../common/userNft";
 import { UserStatus } from "../common/userStatus";
 import { IUserStatus } from "../../interface/user";
 
@@ -9,6 +9,7 @@ interface IMapPopup {
 }
 
 export const MapPopup = (props: IMapPopup) => {
+    console.log(props.status.nfts[0]);
     return (
         <Popup
             longitude={ props.status.longitude }
@@ -17,18 +18,18 @@ export const MapPopup = (props: IMapPopup) => {
             closeButton={ true }
             closeOnClick={ false }
             anchor="top"
-            className="max-w-64 bg-black"
+            className="bg-black"
             maxWidth="none"
             style={{
                 "background": "none",
                 "backgroundColor": "none",
             }}
         >
-            <div className="w-64">
+            <div className="w-72">
                 {
                     ( !props.status.nfts ) ?
                     <UserStatus userStatus={ props.status } /> :
-                    <UserNftSmall nft={ props.status.nfts[0] }/>
+                    <UserNft nft={ props.status.nfts[0] }/>
                 }
             </div>
         </Popup>

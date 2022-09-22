@@ -48,6 +48,7 @@ export const useUserNfts = (): QueryUserNfts => {
                     imageUrl = gateway;
                 }
                 console.log(imageUrl);
+                console.log(nft);
             }
 
             let userNft: IUserNft = {

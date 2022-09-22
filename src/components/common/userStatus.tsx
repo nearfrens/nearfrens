@@ -4,6 +4,7 @@ import { IUserStatus } from "../../interface/user";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
 import { useEnsName, useNetwork } from "wagmi";
 
+
 export const UserStatus = (props: { userStatus: IUserStatus, onClick?: () => void }) => {
 
     let color: string;

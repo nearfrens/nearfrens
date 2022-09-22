@@ -93,16 +93,36 @@ export function useUserCollectionStatus(): QueryUserCollectionStatus {
             console.log(data);
             let newUserListOfCollection = ParseInput(data[0], address);
             for (let userStatus of newUserListOfCollection) {        
+                
                 let nft = await alchemy.nft.getNftMetadata(userStatus.contractAddress[0], userStatus.tokenIds[0]);
-                userStatus.nfts.push({
+
+                let imageUrl;
+            
+                if (nft.media && nft.media.length > 0) {
+                    const raw: string = nft.media[0].raw;
+                    const gateway: string = nft.media[0].gateway;
+                    if ( raw.startsWith("http") ) {
+                        imageUrl = raw;
+                    } else {
+                        imageUrl = gateway;
+                    }
+                    console.log(imageUrl);
+                    console.log(nft);
+                }
+    
+                let userNft = {
                     contractAddress: nft.contract.address,
                     description: nft.description,
                     title: nft.title,
                     tokenId: nft.tokenId,
                     tokenType: nft.tokenType,
                     tokenUri: nft.tokenUri?.raw,
+                    imageUrl: imageUrl,
                     network: enumNetwork,
-                });
+                }
+
+                userStatus.nfts.push(userNft);
+    
                 appendUserCollectionStatus(userStatus);
             }
         }

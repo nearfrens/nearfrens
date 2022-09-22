@@ -5,6 +5,7 @@ import { NetworkChainIcon } from "../icons/blockchainIcon";
 
 
 export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
+    
     const imageUrl = props.nft.imageUrl;
  
     let imageLogo;
@@ -35,9 +36,9 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
                 { imageLogo }
             </div>
 
-            <div className="w-3/4 flex flex-col items-start justify-between gap-2">
+            <div className="w-3/4 flex flex-col items-start justify-between">
 
-                <div className="w-full flex flex-row items-center justify-between gap-2">
+                <div className="w-full flex flex-row items-center justify-between gap-1">
                     <h5 className="text-left">
                         { props.nft.title }
                     </h5>
@@ -59,7 +60,7 @@ export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
                                 <QrCodeIcon className="h-4 w-4"/>
                             </div>
                             <div className="text-xs text-clip overflow-hidden">
-                                { 
+                                {
                                     ( props.nft.contractAddress.length < 9 ) ? 
                                     props.nft.contractAddress : 
                                     props.nft.contractAddress.slice(0, 5) + "..." + props.nft.contractAddress.slice(-3)
