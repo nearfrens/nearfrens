@@ -152,7 +152,7 @@ export const SharePosition = (props: { onClick: () => void } ) => {
     
     const { userNfts } = useUserNfts();
     const { contractAddress } = useNetworkContract();
-    const { mapCoordPosition } = useMapCoordPosition();
+    const { mapCoordPosition, resetMapCoordPosition } = useMapCoordPosition();
     
     const [status, setStatus] = useState<string>("");
     const [zoneId] = useState<number>(0);
@@ -271,12 +271,12 @@ export const SharePosition = (props: { onClick: () => void } ) => {
             <div className="mt-4 mb-4 flex justify-center gap-4">
                 <Button 
                     text={ buttonMessage } 
-                    onClick = { () => writeContract.write?.()}
+                    onClick = { () => { writeContract.write?.() }}
                     disabled = { !writeContract.write  }
                 />
                 <Button
                     text={ "Close" } 
-                    onClick = { props.onClick }
+                    onClick = { () => { props.onClick(); resetMapCoordPosition()} }
                 />
             </div>
             

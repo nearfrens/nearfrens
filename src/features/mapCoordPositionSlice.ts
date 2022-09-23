@@ -24,10 +24,13 @@ export const mapCoordPositionSlice = createSlice({
                 }
             }
         },
+        reset: (state) => {
+            return initialState;
+        }
     },
 });
 
-export const { set } = mapCoordPositionSlice.actions;
+export const { set, reset } = mapCoordPositionSlice.actions;
 
 export const selectMapCoordPosition = (state: RootState) => state.mapCoordPosition.coordinate;
 

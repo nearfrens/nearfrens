@@ -46,7 +46,7 @@ export const Frens = (props: { onClick: () => void, openMessageWith: Dispatch<IU
                     <UserStatus 
                         key={ key } userStatus={ status } 
                         onClickFlyTo={ () => onClickUserStatus(status) }
-                        onClickMessage={ () => props.openMessageWith(status) }
+                        onClickMessage={ () => { props.openMessageWith(status); flyTo({longitude: status.longitude, latitude: status.latitude}) } }
                     />
                 )
                 )}
@@ -65,7 +65,6 @@ export const Frens = (props: { onClick: () => void, openMessageWith: Dispatch<IU
 export const MessageFrens = (props: { peerUserStatus: IUserStatus, onClick: () => void, closeMessage: () => void } ) => {
     
     const { sendMessage } = useConversation(props.peerUserStatus.address!);
-
 
     return (
         <div className="w-full flex flex-col justify-start">   
