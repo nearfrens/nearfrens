@@ -6,10 +6,10 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { getDefaultWallets, RainbowKitProvider, midnightTheme } from "@rainbow-me/rainbowkit";
+import { providerKey } from "./interface/network";
+import XmtpProvider from "./providers/XmtpProvider";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./App.css";
-import { providerKey } from "./interface/network";
-import XmtpProvider from "./components/XmtpProvider";
 
 
 const { chains, provider } = configureChains(
