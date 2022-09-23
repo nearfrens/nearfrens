@@ -110,7 +110,7 @@ export const MapButtonFrens = () => {
             
             <FrensButton
                 onClick={ () => setIsOpen(true) }                
-                tooltip={ "Discor and chat with near frens" }
+                tooltip={ "Discover and chat with near frens" }
             />
 
             <MapModal

@@ -336,7 +336,7 @@ export const MapButtonSharePosition = () => {
             
             <LocationButton
                 onClick={ () => setIsOpen(true) }
-                tooltip={ "Share your positions with frens" }
+                tooltip={ "Share your position" }
             />
 
             <MapModal
