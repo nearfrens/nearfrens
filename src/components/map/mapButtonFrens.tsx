@@ -1,5 +1,5 @@
 import { Dispatch, useState } from "react";
-import { MapModal, MapModalTitle } from "./mapModal";
+import { MapModal } from "./mapModal";
 import { FrensButton } from "../common/buttonRound";
 import { Button } from "../common/button";
 import { UserStatus } from "../common/userStatus";
@@ -19,6 +19,13 @@ export const Frens = (props: { onClick: () => void, openMessageWith: Dispatch<IU
     const { current: map } = useMap();
     const { userCollectionStatus, resetUserCollectionStatus, fetchUserCollectionStatus } = useUserCollectionStatus();
 
+    let currentStatus: IUserStatus;
+    for (let status of userCollectionStatus) {
+        if (status.isMe) {
+            currentStatus = status;
+        }
+    }
+
     function flyTo (coord: ICoordinate) {
         if (!map) return;
         map.flyTo({center: [coord.longitude, coord.latitude], zoom: 12});
@@ -28,19 +35,21 @@ export const Frens = (props: { onClick: () => void, openMessageWith: Dispatch<IU
         props.onClick();
         flyTo({longitude: userStatus.longitude, latitude: userStatus.latitude});
     }
-    
+
+    // <div className="flex flex-row justify-between items-center">
+    // <MapModalTitle title="Discover friends"/>
+    // <div className="w-24 text-xs"> 
+    //     {/* <Button text={ "Show me" } onClick={ () => setShowMe(!showMe)}/> */}
+    //     {/* <Button text={ "Open Message" } onClick={ props.openMessage }/> */}
+    // </div>
+    // </div>
+
     return (
-        <div className="w-full px-6 py-2 flex flex-col justify-start">            
+        <div className="w-full flex flex-col justify-start">            
+
+            <MessageConversationHeader status={ currentStatus! }/>
             
-            <div className="flex flex-row justify-between items-center">
-                <MapModalTitle title="Discover friends"/>
-                <div className="w-24 text-xs"> 
-                    {/* <Button text={ "Show me" } onClick={ () => setShowMe(!showMe)}/> */}
-                    {/* <Button text={ "Open Message" } onClick={ props.openMessage }/> */}
-                </div>
-            </div>
-            
-            <div className="h-72 w-full flex flex-col items-strech justify-start gap-2 overflow-y-auto">
+            <div className="px-3 py-3 h-72 w-full flex flex-col items-strech justify-start gap-2 overflow-y-auto">
                 { userCollectionStatus.map((status, key) => (
                     (status.isMe && !showMe ) ? null :
                     <UserStatus 
@@ -52,7 +61,7 @@ export const Frens = (props: { onClick: () => void, openMessageWith: Dispatch<IU
                 )}
             </div>
             
-            <div className="mt-4 mb-4 flex justify-center gap-2">
+            <div className="px-3 pb-3 py-3 flex justify-center gap-2 bg-stone-700">
                 <Button text="Refresh" onClick = { () => {resetUserCollectionStatus(); fetchUserCollectionStatus()} } />
                 <Button text="Close" onClick = { props.onClick }/>
             </div>
@@ -101,7 +110,7 @@ export const MapButtonFrens = () => {
             
             <FrensButton
                 onClick={ () => setIsOpen(true) }                
-                tooltip={ "Discor near frens and fly to their position" }
+                tooltip={ "Discor and chat with near frens" }
             />
 
             <MapModal

@@ -1,7 +1,7 @@
-import { Conversation, Message, Stream } from '@xmtp/xmtp-js'
-import { useState, useEffect, useContext } from 'react'
-import { XmtpContext } from '../context/xmtp'
-import { useMessageStore } from './useMessageStore'
+import { Conversation, Message, Stream } from '@xmtp/xmtp-js';
+import { useState, useEffect, useContext } from 'react';
+import { XmtpContext } from '../context/xmtp';
+import { useMessageStore } from "./useMessageStore";
 
 type OnMessageCallback = () => void
 

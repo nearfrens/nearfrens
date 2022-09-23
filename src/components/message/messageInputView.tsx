@@ -54,8 +54,12 @@ export const MessageInputView = (props: PropsMessageInputView) => {
                 />
             </div>
             <button className="w-10 flex justify-center" onClick={ handleClickButton }>
-                <PaperAirplaneIcon className="w-6 h-6 text-stone-200"/>
+                {
+                    (message.length > 0) ?
+                    <PaperAirplaneIcon className="w-6 h-6 px-1 py-1 text-white rounded-full bg-blue-400"/> :
+                    <PaperAirplaneIcon className="w-6 h-6 px-1 py-1 text-stone-200"/>
+                }
             </button>
         </div>
-    )
+    );
 }

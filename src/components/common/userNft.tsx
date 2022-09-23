@@ -17,18 +17,27 @@ export const UserNftImage = (props: { image: string|null }) => {
     }
 };
 
+
 export const UserNft = (props: { nft: IUserNft, onClick?: () => void }) => {
     
     return (
         <div 
             className={`
-                px-2 py-2
-                flex flex-row justify-between gap-2
-                border
+                mx-2 my-1 
+                px-3 py-3
+                flex flex-row justify-between gap-2                
                 rounded-lg
                 ${ props.nft.active ? "bg-stone-700" : null }
-                hover:bg-stone-800
-            `}
+                bg-stone-700
+                transition 
+                ease-in-out 
+                delay-20
+                duration-200
+                hover:scale-105
+                hover:rounded-lg
+                `}
+                // hover:-translate-y-0.5
+                // hover:translate-x-0.5
             onClick={ props.onClick }
         >
 

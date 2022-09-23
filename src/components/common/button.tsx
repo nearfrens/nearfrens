@@ -25,7 +25,6 @@ export const Button = (props: IButton) => {
             bg-stone-800 hover:bg-stone-black
             group
             "
-            // bg-gradient-to-r from-pink-600 to-blue-600
             onClick={ props.onClick }
             type={ "button" }
             disabled={ props.disabled }

@@ -20,6 +20,11 @@ export const RoundButton = (props: { icon: ReactElement, onClick: ReactEventHand
                         "bg-stone-800 bg-opacity-50 hover:bg-opacity-70"
                 }
                 rounded-full
+                transition 
+                ease-in-out
+                delay-100 
+                duration-200
+                hover:scale-110
                 `}
                 onClick={ props.onClick }
             >

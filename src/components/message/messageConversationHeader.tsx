@@ -14,19 +14,30 @@ export const MessageConversationHeader = (props: PropsMessageConversationHeader)
         <div className="py-3 px-3 flex flex-row justify-start items-center gap-4 bg-stone-700">
 
             <div className="w-12 h-12 rounded-full overflow-hidden">
-                <UserStatusAvatar status={ props.status }/>                
+                {
+                    props.status &&
+                    <UserStatusAvatar status={ props.status }/>       
+                }
             </div>
 
             <div className="flex flex-col justify-between items-start gap-1">
                 
-                <EnsProfile address={ props.status.address! } size="medium"/>
+                {
+                    ( props.status ) ?
+                    <EnsProfile address={ props.status.address! } size="medium"/> :
+                    null
+                }
 
                 <div className="flex flex-row items-center justify-start gap-2">
                     <div>
-                        <ChatBubbleLeftIcon className="w-4 h-4"/>
+                        {
+                            ( props.status ) ? <ChatBubbleLeftIcon className="w-4 h-4"/> : null
+                        }
                     </div>
                     <div className="text-xs text-stone-200">
-                        { props.status.status }
+                        { 
+                            ( props.status ) ? props.status.status : null
+                        }
                     </div>
                 </div>
 
