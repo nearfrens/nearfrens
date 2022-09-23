@@ -23,6 +23,7 @@ export const Button = (props: IButton) => {
             text-md
             text-stone-200 hover:text-white
             bg-stone-800 hover:bg-stone-black
+            group
             "
             // bg-gradient-to-r from-pink-600 to-blue-600
             onClick={ props.onClick }
@@ -30,15 +31,15 @@ export const Button = (props: IButton) => {
             disabled={ props.disabled }
         >
             <div className="flex flex-row items-center justify-center">
-                <div>
+                <div className="group-hover:text-white">
                     { props.icon }
                 </div>
                 {
                     ( !props.disabled ) ?
-                        <div>
+                        <div className="group-hover:text-white">
                             { props.text }
                         </div> :
-                        <div className="text-stone-500">
+                        <div className="text-stone-500 group-hover:text-white">
                             { props.text }
                         </div>
 

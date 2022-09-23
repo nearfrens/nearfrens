@@ -66,13 +66,14 @@ export const MessageFrens = (props: { peerUserStatus: IUserStatus, onClick: () =
     
     const { sendMessage } = useConversation(props.peerUserStatus.address!);
 
+
     return (
         <div className="w-full flex flex-col justify-start">   
             
             <MessageConversationHeader status={ props.peerUserStatus }/>
-            
-            <MessageConversationList peerAddress={ props.peerUserStatus.address! } />
 
+            <MessageConversationList peerAddress={ props.peerUserStatus.address! } />
+        
             <MessageInputView sendMessage={ sendMessage }/>
                      
             <div className="px-3 pb-3 py-1 flex justify-center gap-2 bg-stone-700">

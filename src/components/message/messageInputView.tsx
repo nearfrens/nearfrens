@@ -1,4 +1,5 @@
-import { Dispatch, useState } from "react";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import React, { Dispatch, useState } from "react";
 
 
 export interface PropsMessageInputView {
@@ -17,8 +18,15 @@ export const MessageInputView = (props: PropsMessageInputView) => {
         }
     }
 
+    function handleClickButton () {
+        if (message !== "") {
+            props.sendMessage(message);
+            setMessage("");
+        }
+    }
+
     return (
-        <div className="w-full px-3 py-3 bg-stone-700">
+        <div className="w-full flex flex-row justify-between items-center px-3 py-3 bg-stone-700">
             <div className="
                 w-full 
                 py-2 px-3
@@ -45,6 +53,9 @@ export const MessageInputView = (props: PropsMessageInputView) => {
                     onKeyDown={ (event) => handleKeyDown(event) }             
                 />
             </div>
+            <button className="w-10 flex justify-center" onClick={ handleClickButton }>
+                <PaperAirplaneIcon className="w-6 h-6 text-stone-200"/>
+            </button>
         </div>
     )
 }

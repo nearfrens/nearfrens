@@ -15,8 +15,7 @@ export const MessageView = (props: IMessage) => {
             `}
         >
             <div className={`            
-                px-4 p
-                y-2
+                px-4 py-2
                 flex flex-col 
                 gap-1
                 rounded-lg

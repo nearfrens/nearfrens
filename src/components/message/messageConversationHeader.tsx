@@ -5,7 +5,6 @@ import { IUserStatus } from "../../interface/user"
 import { UserNftImage } from "../common/userNft";
 import { ReactComponent as EnsLogo } from "../icons/svg/ens.svg";
 
-
 export interface PropsMessageConversationHeader {
     status: IUserStatus;
 }

@@ -1,5 +1,9 @@
-import { useAccount } from "wagmi";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+import { useContext } from "react";
+import { useAccount, useSigner } from "wagmi";
+import { XmtpContext } from "../../context/xmtp";
 import useConversation from "../../hooks/useConversation";
+import { Button } from "../common/button";
 import { MessageView } from "./messageView";
 
 
@@ -13,9 +17,30 @@ export const MessageConversationList = (props: PropsMessageList) => {
 
     const { address } = useAccount();
     const { loading, messages, error } = useConversation(props.peerAddress);
+    
+    const { client, initClient } = useContext(XmtpContext);
+    const { data: signer } = useSigner();
 
-    if (!props.messageOnError) 
+    if ( !client ) {
+        return (
+            <div className="h-72 flex justify-center items-center">
 
+                <div className="flex flex-col justify-center items-center gap-2">
+
+                    <div className="w-fit px-2 py-2 hover:text-white">
+                        <Button 
+                            icon={ <div className="pr-2"> <ArrowRightOnRectangleIcon className="w-6 h-6 group-hover:text-white" /> </div> }
+                            text={ "XMTP Login" }
+                            onClick={ () => initClient(signer!) } 
+                        />
+                    </div>
+
+                </div>
+
+            </div>
+        )
+    }
+    
     if (error) {
         return (
             <div className="h-72 flex justify-center items-center">
