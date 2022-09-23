@@ -40,9 +40,18 @@ export const MapMarker = (props: IMapMarker) => {
             }}
             onClick={() => props.openPopup(props.index)}
         >
-            <div className={`border border-2 ${ borderColor } flex justify-center items-center rounded-full`}>
+            <div className={
+                `border border-2 ${ borderColor } 
+                flex justify-center items-center rounded-full
+                transition 
+                ease-in-out 
+                delay-20
+                duration-200
+                hover:scale-125
+                `}
+            >
                 {
-                    <NearFrensSvg className={`h-6 w-6 ${ logoColor } hover:text-white`} />
+                    <NearFrensSvg className={`h-6 w-6 ${ logoColor }`} />
                 }
             </div>
         </Marker>
