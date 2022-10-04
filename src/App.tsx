@@ -14,17 +14,11 @@ import "./App.css";
 
 const { chains, provider } = configureChains(
   [
-    // chain.mainnet,
-    // chain.polygon,
-    // chain.optimism,
-    chain.goerli,
-    chain.polygonMumbai,
-    chain.optimismGoerli,
+    chain.mainnet,
+    chain.polygon    
   ],
   [
-    alchemyProvider({ apiKey: providerKey.ethereumGoerli }),
-    alchemyProvider({ apiKey: providerKey.polygonMumbai! }), 
-    alchemyProvider({ apiKey: providerKey.optimismGoerli! }),
+    alchemyProvider({ apiKey: providerKey.polygonMainet }),
     publicProvider()
   ]
 );

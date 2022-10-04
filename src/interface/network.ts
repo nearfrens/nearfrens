@@ -9,9 +9,11 @@ export interface IProviderKey {
 }
   
 export const providerKey: IProviderKey = {
+    polygonMainet: process.env.REACT_APP_ALCHEMY_POLYGON,
     ethereumGoerli: process.env.REACT_APP_ALCHEMY_ETHEREUM_GOERLI,
     polygonMumbai: process.env.REACT_APP_ALCHEMY_POLYGON_MUMBAI,
     optimismGoerli: process.env.REACT_APP_ALCHEMY_OPTIMISM_GOERLI,
+
 };
 
 export enum EnumNetwork {

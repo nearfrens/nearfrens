@@ -12,6 +12,7 @@ export interface IContractAddress {
 export const NearFrensContractAddress: IContractAddress = {
     ethereumGoerli: process.env.REACT_APP_CONTRACT_ETHEREUM_GOERLI,
     polygonMumbai: process.env.REACT_APP_CONTRACT_POLYGON_MUMBAI,
+    polygonMainet: process.env.REACT_APP_CONTRACT_POLYGON,
     optimismGoerli: process.env.REACT_APP_CONTRACT_OPTIMISM_GOERLI,
 };
 
